@@ -92,3 +92,5 @@ setopt share_history
 
 setopt auto_cd
 function chpwd() { ls }
+
+setopt share_history
