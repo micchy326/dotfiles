@@ -37,3 +37,6 @@ endif
 
 " .mdファイルをmarkdownに変更
 au BufRead,BufNewFile *.md set filetype=markdown
+
+colorscheme koehler
+

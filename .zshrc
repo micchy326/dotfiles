@@ -94,3 +94,5 @@ setopt auto_cd
 function chpwd() { ls }
 
 setopt share_history
+
+stty -ixon -ixoff
