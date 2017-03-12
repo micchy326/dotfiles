@@ -42,3 +42,10 @@ colorscheme koehler
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
+
+" gtags settings
+map <C-h> :Gtags -f %<CR>
+map <F3> :GtagsCursor<CR>
+map <S-C-G> :Gtags -r <C-r><C-w><CR>
+map <C-n> :cn<CR>
+map <C-p> :cp<CR>
