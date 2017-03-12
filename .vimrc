@@ -40,3 +40,5 @@ au BufRead,BufNewFile *.md set filetype=markdown
 
 colorscheme koehler
 
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
