@@ -96,3 +96,7 @@ function chpwd() { ls }
 setopt share_history
 
 stty -ixon -ixoff
+
+export GTAGSCONF=/usr/local/share/gtags/gtags.conf
+export GTAGSLABEL=pygments
+

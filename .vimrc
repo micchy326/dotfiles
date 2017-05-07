@@ -49,3 +49,5 @@ map <F3> :GtagsCursor<CR>
 map <S-C-G> :Gtags -r <C-r><C-w><CR>
 map <C-n> :cn<CR>
 map <C-p> :cp<CR>
+
+syntax on
