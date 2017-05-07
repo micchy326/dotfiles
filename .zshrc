@@ -100,3 +100,5 @@ stty -ixon -ixoff
 export GTAGSCONF=/usr/local/share/gtags/gtags.conf
 export GTAGSLABEL=pygments
 
+# added by Anaconda3 4.3.1 installer
+export PATH="/opt/anaconda3/bin:$PATH"
