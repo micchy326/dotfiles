@@ -51,3 +51,18 @@ map <C-n> :cn<CR>
 map <C-p> :cp<CR>
 
 syntax on
+
+" 移動
+imap <C-a>  <Home>
+imap <C-e>  <End>
+imap <C-b>  <Left>
+imap <C-f>  <Right>
+
+
+" vim-easymotion の設定 -------------------------
+" デフォルトのキーマッピングを無効に
+"  let g:EasyMotion_do_mapping = 0
+" f + 2文字 で画面全体を検索してジャンプ
+"  nmap f <plug>(easymotion-overwin-f2)
+" 検索時、大文字小文字を区別しない
+"  let g:EasyMotion_smartcase = 1
