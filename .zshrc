@@ -113,6 +113,7 @@ autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
   zstyle ':chpwd:*' recent-dirs-file "${XDG_CACHE_HOME:-$HOME/.cache}/shell/chpwd-recent-dirs"
   zstyle ':chpwd:*' recent-dirs-pushd true
 fi
+mkdir -p ~/.cache/shell
 
 # hook関数precmd実行
 __call_precmds() {
@@ -126,4 +127,7 @@ __cd_up()   { builtin pushd ..; echo; __call_precmds; zle reset-prompt }
 __cd_undo() { builtin popd;     echo; __call_precmds; zle reset-prompt }
 zle -N __cd_up;   bindkey '^[[1;2A' __cd_up
 zle -N __cd_undo; bindkey '^[[1;2B' __cd_undo
+
+# パスの単語区切り文字に含めない文字
+export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
 
