@@ -230,3 +230,5 @@ hardstatus alwayslastline '%m/%d %02c:%s %{= .g}%H%{-} %L=%-w%45L>%{=u g.}%n %t%
 
 # include hostlocal .screenrc
 source '.screenrc.local'
+
+altscreen on
