@@ -130,4 +130,9 @@ zle -N __cd_undo; bindkey '^[[1;2B' __cd_undo
 
 # パスの単語区切り文字に含めない文字
 export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
+    
+# history search
+bindkey '^P' history-beginning-search-backward
+bindkey '^N' history-beginning-search-forward
+
 
