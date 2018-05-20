@@ -38,7 +38,7 @@ endif
 " .mdファイルをmarkdownに変更
 au BufRead,BufNewFile *.md set filetype=markdown
 
-colorscheme elflord
+colorscheme ron
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
@@ -92,10 +92,10 @@ set backspace=indent,eol,start
 set whichwrap=b,s,h,l,<,>,[,]
 
 "挿入モード中の移動コマンド
-inoremap <C-a>  <Home>
-inoremap <C-e>  <End>
-inoremap <C-b>  <Left>
-inoremap <C-f>  <Right>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
 
 "コマンドラインでのemacsバインディング 
 cnoremap <C-p> <Up>
@@ -117,24 +117,34 @@ augroup highlightZenkakuSpace "全角スペースを赤色にする
     autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
 augroup END
 
+
 "インサートモードからノーマルモード切り替え時にIMEを無効化
 "入力システムがfcitxである必要がある
 "https://qiita.com/hoshitocat/items/a80d613ef73b7a06ec50
 function! ImInActivate()
-  call system('fcitx-remote -c')
+    call system('fcitx-remote -c')
 endfunction
-inoremap <silent> <C-[> <ESC>:call ImInActivate()<CR>
+inoremap <silent> <ESC> <ESC>:call ImInActivate()<CR>
 
 " ESC to jj
 inoremap <silent> jj <ESC>:call ImInActivate()<CR>
 inoremap <silent> kk <ESC>:call ImInActivate()<CR>
 " 日本語入力で”っj”と入力してもEnterキーで確定させればインサートモードを抜、IMEを無効化
-noremap <silent> っｊ <ESC>:call ImInActivate()<CR>
-noremap <silent> っっｊ <ESC>:call ImInActivate()<CR>
-noremap <silent> っっっｊ <ESC>:call ImInActivate()<CR>
-noremap <silent> っっっっｊ <ESC>:call ImInActivate()<CR>
-noremap <silent> っｋ <ESC>:call ImInActivate()<CR>
-noremap <silent> っっｋ <ESC>:call ImInActivate()<CR>
-noremap <silent> っっっｋ <ESC>:call ImInActivate()<CR>
-noremap <silent> っっっっｋ <ESC>:call ImInActivate()<CR>
+inoremap <silent> っｊ <ESC>:call ImInActivate()<CR>
+inoremap <silent> っっｊ <ESC>:call ImInActivate()<CR>
+inoremap <silent> っっっｊ <ESC>:call ImInActivate()<CR>
+inoremap <silent> っっっっｊ <ESC>:call ImInActivate()<CR>
+inoremap <silent> っｋ <ESC>:call ImInActivate()<CR>
+inoremap <silent> っっｋ <ESC>:call ImInActivate()<CR>
+inoremap <silent> っっっｋ <ESC>:call ImInActivate()<CR>
+inoremap <silent> っっっっｋ <ESC>:call ImInActivate()<CR>
+
+nnoremap <silent> っｊ <ESC>:call ImInActivate()<CR>
+nnoremap <silent> っっｊ <ESC>:call ImInActivate()<CR>
+nnoremap <silent> っっっｊ <ESC>:call ImInActivate()<CR>
+nnoremap <silent> っっっっｊ <ESC>:call ImInActivate()<CR>
+nnoremap <silent> っｋ <ESC>:call ImInActivate()<CR>
+nnoremap <silent> っっｋ <ESC>:call ImInActivate()<CR>
+nnoremap <silent> っっっｋ <ESC>:call ImInActivate()<CR>
+nnoremap <silent> っっっっｋ <ESC>:call ImInActivate()<CR>
 
