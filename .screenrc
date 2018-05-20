@@ -20,7 +20,7 @@ bind F eval 'scrollback 0' 'scrollback 1000' 'echo "scrollback buffer cleared"'
 startup_message off
 
 # don't remove windows from the window list as soon as window process exits.
-zombie kr #  k: destory window, r: resurrect window
+#zombie kr #  k: destory window, r: resurrect window
 
 # echo command name whenever a window is created or resurrected.
 verbose on
@@ -38,7 +38,7 @@ hardcopy_append on
 bufferfile 'screen/screen-exchange'
 
 # changes the kind of messages to the nethack-style.
-nethack on
+nethack off
 
 # enable visual vells
 vbell on
@@ -227,6 +227,9 @@ hardstatus alwayslastline '%m/%d %02c:%s %{= .g}%H%{-} %L=%-w%45L>%{=u g.}%n %t%
 #
 # The capitalized versions of the letter specify bright colors.
 # You can also use the pseudo-color `i' to set just the brightness and leave the color unchanged.
+
+# Ignore case when searching.
+ignorecase on
 
 # include hostlocal .screenrc
 source '.screenrc.local'
