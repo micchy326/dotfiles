@@ -7,7 +7,7 @@
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="rkj-repos"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -37,7 +37,7 @@ ENABLE_CORRECTION="true"
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -129,10 +129,15 @@ zle -N __cd_up;   bindkey '^[[1;2A' __cd_up
 zle -N __cd_undo; bindkey '^[[1;2B' __cd_undo
 
 # パスの単語区切り文字に含めない文字
-export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
-    
+export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>/"
+
 # history search
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
 
 
+# 実行したプロセスの消費時間が3秒以上かかったら
+# 自動的に消費時間の統計情報を表示する
+REPORTTIME=3
+
+# 
