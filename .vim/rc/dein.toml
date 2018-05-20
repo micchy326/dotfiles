@@ -12,3 +12,6 @@ repo = 'tyru/open-browser.vim'
 
 [[plugins]]
 repo = 'vim-scripts/gtags.vim'
+
+[[plugins]]
+repo = 'Lokaltog/vim-easymotion'
