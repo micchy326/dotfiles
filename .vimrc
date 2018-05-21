@@ -113,12 +113,21 @@ cnoremap <C-d> <Del>
 "http://4geek.net/set-gvims-vimrc-on-windows/
 set list "タブ、行末等の不可視文字を表示する
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:%
-scriptencoding utf-8 "これ入れないと下記が反映されない
-augroup highlightZenkakuSpace "全角スペースを赤色にする
-    autocmd!
-    autocmd VimEnter,ColorScheme * highlight ZenkakuSpace term=underline ctermbg=Red guibg=Red
-    autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
-augroup END
+
+"全角スペースをハイライト
+"https://shobon.hatenablog.com/entry/2014/06/24/221750
+function! ZenkakuSpace()
+    highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
+endfunction
+
+if has('syntax')
+    augroup ZenkakuSpace
+        autocmd!
+        autocmd ColorScheme       * call ZenkakuSpace()
+        autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+    augroup END
+    call ZenkakuSpace()
+endif
 
 
 "インサートモードからノーマルモード切り替え時にIMEを無効化
@@ -151,3 +160,11 @@ nnoremap <silent> っっｋ <ESC>:call ImInActivate()<CR>
 nnoremap <silent> っっっｋ <ESC>:call ImInActivate()<CR>
 nnoremap <silent> っっっっｋ <ESC>:call ImInActivate()<CR>
 
+
+"検索語が画面の真ん中に来るようにする
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
