@@ -141,4 +141,5 @@ bindkey '^N' history-beginning-search-forward
 # 自動的に消費時間の統計情報を表示する
 REPORTTIME=3
 
-# 
+# 全コマンドで correct 機能を無効化
+unsetopt correctall
