@@ -40,6 +40,11 @@ au BufRead,BufNewFile *.md set filetype=markdown
 
 colorscheme ron
 
+syntax on
+
+set cursorline
+highlight CursorLine cterm=none ctermbg=darkgreen
+
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
@@ -49,8 +54,6 @@ map <F3> :GtagsCursor<CR>
 map <S-C-G> :Gtags -r <C-r><C-w><CR>
 map <C-n> :cn<CR>
 map <C-p> :cp<CR>
-
-syntax on
 
 set tabstop=4
 set autoindent
