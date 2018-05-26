@@ -160,7 +160,6 @@ nnoremap <silent> っっｋ <ESC>:call ImInActivate()<CR>
 nnoremap <silent> っっっｋ <ESC>:call ImInActivate()<CR>
 nnoremap <silent> っっっっｋ <ESC>:call ImInActivate()<CR>
 
-
 "検索語が画面の真ん中に来るようにする
 nnoremap n nzz
 nnoremap N Nzz
@@ -168,3 +167,6 @@ nnoremap * *zz
 nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
+
+" :helpの日本語化
+set helplang=ja,en
