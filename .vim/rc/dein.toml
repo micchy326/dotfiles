@@ -15,3 +15,7 @@ repo = 'vim-scripts/gtags.vim'
 
 [[plugins]]
 repo = 'Lokaltog/vim-easymotion'
+
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+
