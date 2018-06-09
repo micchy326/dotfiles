@@ -143,3 +143,6 @@ REPORTTIME=3
 
 # 全コマンドで correct 機能を無効化
 unsetopt correctall
+
+# 256色化
+TERM=xterm-256color
