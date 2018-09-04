@@ -146,3 +146,25 @@ unsetopt correctall
 
 # 256色化
 TERM=xterm-256color
+
+########################################
+# tmuxの設定
+# 自動ロギング
+if [[ !${TMUX} ]]; then
+    local LOGDIR=${HOME}/terminallogs
+    local LOGFILE=$(hostname)_$(date +%Y-%m-%d_%H%M%S_%N.log)
+    local FILECOUNT=0
+    local MAXFILECOUNT=500 #ここを好きな保存ファイル数に変える。
+    # zsh起動時に自動で${MAXFILECOUNT}のファイル数以上ログファイルあれば消す
+    for file in `\find "${LOGDIR}" -maxdepth 1 -type f -name "*.log" | sort --reverse`; do
+        FILECOUNT=`expr ${FILECOUNT} + 1`
+        if [ ${FILECOUNT} -ge ${MAXFILECOUNT} ]; then
+            rm -f ${file}
+        fi
+    done
+    [ ! -d ${LOGDIR} ] && mkdir -p ${LOGDIR}
+    tmux set-option default-terminal "screen" \; \
+    pipe-pane "cat >> ${LOGDIR}/${LOGFILE}" \; \
+    display-message "💾Started logging to${LOGDIR}/${LOGFILE}"
+fi
+

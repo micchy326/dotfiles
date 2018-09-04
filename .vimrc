@@ -73,6 +73,7 @@ set shiftwidth=4
 set hidden
 
 "Backup
+call system('mkdir -p $HOME/dotfiles/.vim/backup')
 set backupdir=$HOME/dotfiles/.vim/backup
 set browsedir=buffer
 set directory=$HOME/dotfiles/.vim/backup
