@@ -179,6 +179,10 @@ set scrolloff=3
 nnoremap <silent> <C-j> :bprev<CR>
 nnoremap <silent> <C-k> :bnext<CR>
 
+" mouseを使用する
+set mouse=a
+set ttymouse=sgr
+
 " airlineの設定
 set laststatus=2
 set showtabline=2 " 常にタブラインを表示
