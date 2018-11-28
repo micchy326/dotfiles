@@ -150,6 +150,14 @@ unsetopt correctall
 # 256色化
 TERM=xterm-256color
 
+# cdrコマンドを有効 ログアウトしても有効なディレクトリ履歴
+# cdr タブでリストを表示
+autoload -Uz add-zsh-hook
+autoload -Uz chpwd_recent_dirs cdr
+add-zsh-hook chpwd chpwd_recent_dirs
+# cdrコマンドで履歴にないディレクトリにも移動可能に
+zstyle ":chpwd:*" recent-dirs-default true
+
 ########################################
 # tmuxの設定
 # 自動ロギング
