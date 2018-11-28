@@ -133,8 +133,11 @@ zle -N __cd_undo; bindkey '^[[1;2B' __cd_undo
 export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>/"
 
 # history search
-bindkey '^P' history-beginning-search-backward
-bindkey '^N' history-beginning-search-forward
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^p" history-beginning-search-backward-end
+bindkey "^n" history-beginning-search-forward-end
 
 
 # 実行したプロセスの消費時間が3秒以上かかったら
