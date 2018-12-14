@@ -10,7 +10,7 @@
 ZSH_THEME="rkj-repos"
 
 # Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -149,6 +149,10 @@ unsetopt correctall
 
 # 256色化
 TERM=xterm-256color
+
+# LS_COLORSの設定
+eval `dircolors ~/.dircolors-solarized/dircolors.ansi-universal`
+zstyle ':completion:*' list-colors "${LS_COLORS}"
 
 # cdrコマンドを有効 ログアウトしても有効なディレクトリ履歴
 # cdr タブでリストを表示

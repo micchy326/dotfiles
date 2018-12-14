@@ -8,4 +8,5 @@ ln -s ~/dotfiles/.zshrc ~/.zshrc
 mkdir -p ~/.config/Code/User/
 ln -s ~/dotfiles/settings.json ~/.config/Code/User/settings.json
 ln -s ~/dotfiles/keybindings.json ~/.config/Code/User/keybindings.json
+git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors-solarized
 
