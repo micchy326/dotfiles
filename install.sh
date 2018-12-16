@@ -1,12 +1,19 @@
 #!/bin/bash
 
-ln -s ~/dotfiles/.screenrc ~/.screenrc
-ln -s ~/dotfiles/.vimrc ~/.vimrc
-ln -s ~/dotfiles/.vim ~/.vim
+ln -sf ~/dotfiles/.screenrc ~/.screenrc
+ln -sf ~/dotfiles/.vimrc ~/.vimrc
+ln -sf ~/dotfiles/.vim ~/.vim
 mkdir -p ~/.vim/backup
-ln -s ~/dotfiles/.zshrc ~/.zshrc
+ln -sf ~/dotfiles/.zshrc ~/.zshrc
 mkdir -p ~/.config/Code/User/
-ln -s ~/dotfiles/settings.json ~/.config/Code/User/settings.json
-ln -s ~/dotfiles/keybindings.json ~/.config/Code/User/keybindings.json
-git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors-solarized
+ln -sf ~/dotfiles/settings.json ~/.config/Code/User/settings.json
+ln -sf ~/dotfiles/keybindings.json ~/.config/Code/User/keybindings.json
+if [[ ! -d ~/.dircolors-solarized ]];then
+    git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors-solarized
+fi
+
+pushd ~/.dircolors-solarized
+git pull > /dev/null
+popd
+ln -sf ~/dotfiles/rkj-repos-custom.zsh-theme ~/.oh-my-zsh/custom/themes/
 
