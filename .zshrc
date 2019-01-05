@@ -169,11 +169,11 @@ zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower
 # tmuxの設定
 # 自動ロギング
 if [[ !${TMUX} ]]; then
-    mkdir tmuxlogs
     local LOGDIR=${HOME}/tmuxlogs
     local LOGFILE=$(hostname)_$(date +%Y-%m-%d_%H%M%S_%N.log)
     local FILECOUNT=0
     local MAXFILECOUNT=500 #ここを好きな保存ファイル数に変える。
+    mkdir -p ${LOGDIR}
     # zsh起動時に自動で${MAXFILECOUNT}のファイル数以上ログファイルあれば消す
     for file in `\find "${LOGDIR}" -maxdepth 1 -type f -name "*.log" | sort --reverse`; do
         FILECOUNT=`expr ${FILECOUNT} + 1`
