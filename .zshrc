@@ -169,7 +169,8 @@ zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower
 # tmuxの設定
 # 自動ロギング
 if [[ !${TMUX} ]]; then
-    local LOGDIR=${HOME}/terminallogs
+    mkdir tmuxlogs
+    local LOGDIR=${HOME}/tmuxlogs
     local LOGFILE=$(hostname)_$(date +%Y-%m-%d_%H%M%S_%N.log)
     local FILECOUNT=0
     local MAXFILECOUNT=500 #ここを好きな保存ファイル数に変える。
