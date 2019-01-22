@@ -2,7 +2,7 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'vim-scripts/gtags.vim'
+repo = 'micchy326/gtags.vim'
 
 [[plugins]]
 repo = 'Lokaltog/vim-easymotion'
@@ -16,3 +16,8 @@ repo = 'vim-airline/vim-airline'
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
 
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'

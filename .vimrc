@@ -49,11 +49,16 @@ highlight CursorLine ctermfg=NONE guibg=#303030 ctermbg=236 gui=NONE cterm=NONE
 cmap w!! w !sudo tee > /dev/null %
 
 " gtags settings
+map <F2> :copen<CR>
+map <F4> :cclose<CR>
 map <C-h> :Gtags -f %<CR>
 map <F3> :GtagsCursor<CR>
 map <S-C-G> :Gtags -r <C-r><C-w><CR>
 map <C-n> :cn<CR>
 map <C-p> :cp<CR>
+let g:Gtags_OpenQuickfixWindow = 1
+let g:Gtags_Close_When_Single = 1
+let g:Gtags_Auto_Update = 1
 
 set tabstop=4
 set autoindent
