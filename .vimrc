@@ -225,7 +225,7 @@ else
         let &t_ti .= "\e[?2004h"
         let &t_te .= "\e[?2004l"
 
-        function XTermPasteBegin(ret)
+        function! XTermPasteBegin(ret)
             set pastetoggle=<Esc>[201~
             set paste
             return a:ret
