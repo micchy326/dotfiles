@@ -5,6 +5,9 @@ repo = 'Shougo/dein.vim'
 repo = 'micchy326/gtags.vim'
 
 [[plugins]]
+repo = 'micchy326/gtags-cscope.vim'
+
+[[plugins]]
 repo = 'Lokaltog/vim-easymotion'
 
 [[plugins]]
@@ -21,3 +24,7 @@ repo = 'prabirshrestha/async.vim'
 
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
+
+[[plugins]]
+repo = 'ctrlpvim/ctrlp.vim'
+

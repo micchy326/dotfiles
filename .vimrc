@@ -247,3 +247,18 @@ else
     endif
 endif
 
+
+" ctrlp settings
+let g:ctrlp_map = '<C-x>'
+let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_root_markers = ['GTAGS']
+"let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+let g:ctrlp_lazy_update = 1
+let g:ctrlp_max_height = 20
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
+map <c-x> :CtrlP<CR>
+
