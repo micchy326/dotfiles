@@ -48,6 +48,14 @@ highlight CursorLine ctermfg=NONE guibg=#303030 ctermbg=236 gui=NONE cterm=NONE
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
+" gtags-cscope.vim settings
+set cscopetag
+let GtagsCscope_Auto_Load = 1
+let GtagsCscope_Auto_Map = 1
+let GtagsCscope_Quiet = 1
+let GtagsCscope_Ignore_Case = 0
+let GtagsCscope_Absolute_Path = 0
+
 " gtags settings
 map <F2> :copen<CR>
 map <F4> :cclose<CR>
