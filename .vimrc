@@ -253,12 +253,23 @@ let g:ctrlp_map = '<C-x>'
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = ['GTAGS']
+let g:ctrlp_show_hidden = 1
 "let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 let g:ctrlp_lazy_update = 1
-let g:ctrlp_max_height = 20
+let g:ctrlp_max_height = 30
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)',
-  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'func': 'CtrlPIgnoreFilter'
   \ }
 map <c-x> :CtrlP<CR>
 
+function! CtrlPIgnoreFilter(item, type) abort
+    let l:cnv_item = tr(a:item, "\\", "/")
+    let l:pattern = ['\.git/', '\.svn/', '/\.cache/', '/\.dropbox/', '/\.conda/', '/\.eclipse/']
+    for p in l:pattern
+        if match(l:cnv_item, p) >= 0
+            "echo 'skip = ' l:cnv_item
+            return 1
+        endif
+    endfor
+    return 0
+endfunction
