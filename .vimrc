@@ -276,5 +276,14 @@ endfunction
 " clang_complete
 let g:clang_library_path='/usr/local/lib/libclang.so'
 
+" 補完メニューの色
+hi Pmenu ctermbg=23 cterm=BOLD
+hi Pmenu ctermfg=209 cterm=BOLD
+hi PmenuSel ctermbg=29
+hi PmenuSel ctermfg=209 cterm=BOLD
+hi PmenuSbar ctermbg=22
+hi PmenuThumb ctermfg=3
+
+
 
 
