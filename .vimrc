@@ -273,3 +273,8 @@ function! CtrlPIgnoreFilter(item, type) abort
     endfor
     return 0
 endfunction
+" clang_complete
+let g:clang_library_path='/usr/local/lib/libclang.so'
+
+
+

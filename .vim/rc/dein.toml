@@ -28,3 +28,5 @@ repo = 'prabirshrestha/vim-lsp'
 [[plugins]]
 repo = 'ctrlpvim/ctrlp.vim'
 
+[[plugins]]
+repo = 'Rip-Rip/clang_complete'
