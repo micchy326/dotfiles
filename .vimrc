@@ -264,7 +264,7 @@ map <c-x> :CtrlP<CR>
 
 function! CtrlPIgnoreFilter(item, type) abort
     let l:cnv_item = tr(a:item, "\\", "/")
-    let l:pattern = ['\.git/', '\.svn/', '/\.cache/', '/\.dropbox/', '/\.conda/', '/\.eclipse/']
+    let l:pattern = ['\.git/', '\.svn/', '/\.cache/', '/\.dropbox/', '/\.conda/', '/\.eclipse/', '\.o$', '\.a$', 'GPATH', 'GRTAGS', 'GTAGS']
     for p in l:pattern
         if match(l:cnv_item, p) >= 0
             "echo 'skip = ' l:cnv_item
