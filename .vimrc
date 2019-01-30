@@ -275,6 +275,8 @@ function! CtrlPIgnoreFilter(item, type) abort
 endfunction
 " clang_complete
 let g:clang_library_path='/usr/local/lib/libclang.so'
+" previewウインドウをひとまず無効化
+set completeopt=menuone
 
 " 補完メニューの色
 hi Pmenu ctermbg=23 cterm=BOLD
