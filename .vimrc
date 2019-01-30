@@ -286,6 +286,38 @@ hi PmenuSel ctermfg=209 cterm=BOLD
 hi PmenuSbar ctermbg=22
 hi PmenuThumb ctermfg=3
 
+" vim-quickhl
+nmap <Space>m <Plug>(quickhl-manual-this)
+xmap <Space>m <Plug>(quickhl-manual-this)
+nmap <F9>     <Plug>(quickhl-manual-toggle)
+xmap <F9>     <Plug>(quickhl-manual-toggle)
 
+nmap <Space>M <Plug>(quickhl-manual-reset)
+xmap <Space>M <Plug>(quickhl-manual-reset)
 
+nmap <Space>j <Plug>(quickhl-cword-toggle)
 
+nmap <Space>] <Plug>(quickhl-tag-toggle)
+
+map H <Plug>(operator-quickhl-manual-this-motion)
+" 上から順にハイライト時の色として使用される。抵抗のカラーコードと同じ
+let g:quickhl_manual_colors = [
+   \ "gui=bold ctermfg=15 ctermbg=172 guibg=#8A4B08 guifg=#ffffff",
+   \ "gui=bold ctermfg=15 ctermbg=160 guibg=#DF013A guifg=#ffffff",
+   \ "gui=bold ctermfg=0  ctermbg=202 guibg=#FF8000 guifg=#000000",
+   \ "gui=bold ctermfg=0  ctermbg=220 guibg=#F3F781 guifg=#000000",
+   \ "gui=bold ctermfg=0  ctermbg=118 guibg=#00FF00 guifg=#000000",
+   \ "gui=bold ctermfg=15 ctermbg=20  guibg=#2E64FE guifg=#ffffff",
+   \ "gui=bold ctermfg=15 ctermbg=5   guibg=#A901DB guifg=#ffffff",
+   \ "gui=bold ctermfg=0  ctermbg=247 guibg=#FFFFFF guifg=#000000",
+   \ "gui=bold ctermfg=0  ctermbg=255 guibg=#D8D8D8 guifg=#000000",
+   \ "gui=bold ctermfg=15 ctermbg=239 guibg=#585858 guifg=#ffffff",
+      \ ]
+
+" 常時ハイライトしたい文字列を指定する。上の配色が上から使用される
+"let g:quickhl_manual_keywords = [
+"      \ "finish",
+"      \ {"pattern": '\s\+$', "regexp": 1 },
+"      \ {"pattern": '\d\{1,3}\.\d\{1,3}\.\d\{1,3}\.\d\{1,3}', "regexp": 1 },
+"      \ ]
+"

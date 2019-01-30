@@ -30,3 +30,11 @@ repo = 'ctrlpvim/ctrlp.vim'
 
 [[plugins]]
 repo = 'Rip-Rip/clang_complete'
+
+[[plugins]]
+repo = 't9md/vim-quickhl'
+
+[[plugins]]
+repo = 'gorodinskiy/vim-coloresque'
+
+
