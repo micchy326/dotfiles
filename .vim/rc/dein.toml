@@ -37,4 +37,7 @@ repo = 't9md/vim-quickhl'
 [[plugins]]
 repo = 'gorodinskiy/vim-coloresque'
 
+[[plugins]]
+repo = 'MattesGroeger/vim-bookmarks'
+
 
