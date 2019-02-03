@@ -1,3 +1,7 @@
+" プラグイン読み込みの前にpython3の使用を宣言しておく
+" プラグインを先に読み込むとpython2が使用されてしまう
+call has('python3')
+
 " プラグインが実際にインストールされるディレクトリ
 let s:dein_dir = expand('~/.cache/dein')
 " dein.vim 本体
@@ -273,6 +277,7 @@ function! CtrlPIgnoreFilter(item, type) abort
     endfor
     return 0
 endfunction
+
 " clang_complete
 let g:clang_library_path='/usr/local/lib/libclang.so'
 " previewウインドウをひとまず無効化
