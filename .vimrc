@@ -49,6 +49,10 @@ syntax on
 set cursorline
 highlight CursorLine ctermfg=NONE guibg=#303030 ctermbg=236 gui=NONE cterm=NONE
 
+" 縦分割の線色設定
+set fillchars=vert:\|,fold:-
+highlight VertSplit ctermfg=black ctermbg=lightblue
+
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
