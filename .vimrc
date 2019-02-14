@@ -332,3 +332,6 @@ let g:quickhl_manual_colors = [
 "      \ {"pattern": '\d\{1,3}\.\d\{1,3}\.\d\{1,3}\.\d\{1,3}', "regexp": 1 },
 "      \ ]
 "
+
+" vimdiffのアルゴリズムを賢く (vim vim 8.1.0360-)
+set diffopt=internal,filler,algorithm:histogram,indent-heuristic
