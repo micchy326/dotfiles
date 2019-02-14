@@ -335,3 +335,20 @@ let g:quickhl_manual_colors = [
 
 " vimdiffのアルゴリズムを賢く (vim vim 8.1.0360-)
 set diffopt=internal,filler,algorithm:histogram,indent-heuristic
+
+" vim-lsp(typescript)
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+            \ 'name': 'typescript-language-server',
+            \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+            \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
+            \ })
+endif
+
+let g:lsp_async_completion = 1
+"let g:lsp_log_verbose = 1
+"let g:lsp_log_file = expand("~/vim-lsp.log")
+
+autocmd FileType typescript setlocal omnifunc=lsp#complete
+
+
