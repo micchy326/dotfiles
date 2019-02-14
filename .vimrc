@@ -265,10 +265,12 @@ let g:ctrlp_show_hidden = 1
 "let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 let g:ctrlp_lazy_update = 1
 let g:ctrlp_max_height = 30
+let g:ctrlp_use_caching = 1
+let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_custom_ignore = {
   \ 'func': 'CtrlPIgnoreFilter'
   \ }
-map <c-x> :CtrlP<CR>
+"map <c-x> :CtrlP<CR>
 
 function! CtrlPIgnoreFilter(item, type) abort
     let l:cnv_item = tr(a:item, "\\", "/")
