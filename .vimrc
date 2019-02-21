@@ -351,4 +351,8 @@ let g:lsp_async_completion = 1
 
 autocmd FileType typescript setlocal omnifunc=lsp#complete
 
+" ctrlp + memolist
+nmap ,mf :exe "CtrlP" g:memolist_path<cr><f5>
+nmap ,mc :MemoNew<cr>
+nmap ,mg :MemoGrep<cr>
 
