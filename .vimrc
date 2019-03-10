@@ -344,15 +344,48 @@ if executable('typescript-language-server')
             \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
             \ })
 endif
-
-let g:lsp_async_completion = 1
-"let g:lsp_log_verbose = 1
-"let g:lsp_log_file = expand("~/vim-lsp.log")
-
 autocmd FileType typescript setlocal omnifunc=lsp#complete
+
+call lsp#register_server({
+    \ 'name': 'clangd',
+    \ 'cmd': {server_info->['clangd']},
+    \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+    \ })
+autocmd FileType cpp setlocal omnifunc=lsp#complete
+
 
 " ctrlp + memolist
 nmap ,mf :exe "CtrlP" g:memolist_path<cr><f5>
 nmap ,mc :MemoNew<cr>
 nmap ,mg :MemoGrep<cr>
+
+
+" dirvish-git
+let g:dirvish_git_indicators = {
+\ 'Modified'  : 'Ṁ',
+\ 'Staged'    : 'Ṥ',
+\ 'Untracked' : 'Ṳ',
+\ 'Renamed'   : 'Ṟ',
+\ 'Unmerged'  : '⌥',
+\ 'Ignored'   : 'ỉ',
+\ 'Unknown'   : '?'
+\ }
+
+let g:modified = 'guifg=#FFFF00 ctermfg=226'
+let g:added = 'guifg=#5FFF87 ctermfg=84'
+let g:unmerged = 'guifg=#FF005F ctermfg=197'
+
+silent exe 'hi default DirvishGitModified '.g:modified
+silent exe 'hi default DirvishGitStaged '.g:added
+silent exe 'hi default DirvishGitRenamed '.g:modified
+silent exe 'hi default DirvishGitUnmerged '.g:unmerged
+silent exe 'hi default DirvishGitIgnored guifg=NONE guibg=NONE gui=NONE cterm=NONE ctermfg=NONE ctermbg=NONE'
+silent exe 'hi default DirvishGitUntracked guifg=NONE guibg=NONE gui=NONE cterm=NONE ctermfg=NONE ctermbg=NONE'
+" Untracked dir linked to Dirvish default dir color
+silent exe 'hi default link DirvishGitUntrackedDir DirvishPathTail'
+
+augroup DirVishHighlight
+  au!
+  autocmd FileType dirvish :hi Conceal ctermfg=123 ctermbg=0 guifg=LightGrey guibg=DarkGrey
+augroup END
 

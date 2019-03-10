@@ -55,6 +55,11 @@ repo = 'prabirshrestha/asyncomplete-lsp.vim'
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
 
-
 [[plugins]]
 repo = 'glidenote/memolist.vim'
+
+[[plugins]]
+repo = 'justinmk/vim-dirvish'
+
+[[plugins]]
+repo = 'micchy326/vim-dirvish-git'
