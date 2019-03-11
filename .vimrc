@@ -364,6 +364,9 @@ let g:dirvish_git_indicators = {
 \ 'Unknown'   : '?'
 \ }
 
+" Sort folders at the top: >
+let g:dirvish_mode = ':sort ,^.*[\/],'
+
 let g:modified = 'guifg=#FFFF00 ctermfg=226'
 let g:added = 'guifg=#5FFF87 ctermfg=84'
 let g:unmerged = 'guifg=#FF005F ctermfg=197'
