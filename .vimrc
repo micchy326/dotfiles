@@ -185,14 +185,6 @@ nnoremap <silent> っっｋ <ESC>:call ImInActivate()<CR>
 nnoremap <silent> っっっｋ <ESC>:call ImInActivate()<CR>
 nnoremap <silent> っっっっｋ <ESC>:call ImInActivate()<CR>
 
-"検索語が画面の真ん中に来るようにする
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
-nnoremap g* g*zz
-nnoremap g# g#zz
-
 " :helpの日本語化
 set helplang=ja,en
 
@@ -213,6 +205,7 @@ set showtabline=2 " 常にタブラインを表示
 set t_Co=256 " この設定がないと色が正しく表示されない
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#anzu#enabled = 1
 let g:airline_theme='wombat'
 let g:airline_powerline_fonts = 1
 
@@ -388,4 +381,21 @@ augroup DirVishHighlight
   au!
   autocmd FileType dirvish :hi Conceal ctermfg=123 ctermbg=0 guifg=LightGrey guibg=DarkGrey
 augroup END
+
+" anzu
+nmap n <Plug>(anzu-n)zz
+nmap N <Plug>(anzu-N)zz
+nmap * <Plug>(anzu-star)zz
+nmap # <Plug>(anzu-sharp)zz
+
+" g* 時にステータス情報を出力する場合
+nmap g* g*<Plug>(anzu-update-search-status-with-echo)
+
+" clear status
+nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+
+" statusline
+set statusline=%{anzu#search_status()}
+
+let g:airline_extensions=[ "ctrlp", "keymap", "netrw", "po", "quickfix", "tabline", "term", "whitespace", "wordcount", "anzu",]
 

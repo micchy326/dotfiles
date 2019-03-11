@@ -63,3 +63,6 @@ repo = 'justinmk/vim-dirvish'
 
 [[plugins]]
 repo = 'micchy326/vim-dirvish-git'
+
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'
