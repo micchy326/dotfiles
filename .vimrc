@@ -165,7 +165,6 @@ inoremap <silent> <ESC> <ESC>:call ImInActivate()<CR>
 
 " ESC to jj
 inoremap <silent> jj <ESC>:call ImInActivate()<CR>
-inoremap <silent> kk <ESC>:call ImInActivate()<CR>
 " 日本語入力で”っj”と入力してもEnterキーで確定させればインサートモードを抜、IMEを無効化
 inoremap <silent> っｊ <ESC>:call ImInActivate()<CR>
 inoremap <silent> っっｊ <ESC>:call ImInActivate()<CR>
@@ -261,7 +260,7 @@ let g:ctrlp_max_height = 30
 let g:ctrlp_use_caching = 1
 let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_custom_ignore = {
-  \ 'func': 'CtrlPIgnoreFilter'
+  \ 'func': 'CtrlPIgnoreFilter',
   \ }
 "map <c-x> :CtrlP<CR>
 
