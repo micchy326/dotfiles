@@ -422,3 +422,10 @@ augroup typescriptproject
     autocmd FileType typescript setlocal completefunc=LanguageClient#complete
     autocmd FileType typescript setlocal iskeyword=@,48-57,_,192-255
 augroup END
+
+" mapの一覧をファイル出力
+function! MapList()
+    redir! > ~/vim_keys.txt
+    silent verbose map
+    redir END
+endfunction
