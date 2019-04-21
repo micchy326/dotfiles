@@ -276,8 +276,6 @@ function! CtrlPIgnoreFilter(item, type) abort
     return 0
 endfunction
 
-" clang_complete
-let g:clang_library_path='/usr/local/lib/libclang.so'
 " previewウインドウをひとまず無効化
 set completeopt=menuone
 
@@ -327,24 +325,6 @@ let g:quickhl_manual_colors = [
 
 " vimdiffのアルゴリズムを賢く (vim vim 8.1.0360-)
 set diffopt=internal,filler,algorithm:histogram,indent-heuristic
-
-" vim-lsp(typescript)
-if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-            \ 'name': 'typescript-language-server',
-            \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-            \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
-            \ })
-endif
-autocmd FileType typescript setlocal omnifunc=lsp#complete
-
-call lsp#register_server({
-    \ 'name': 'clangd',
-    \ 'cmd': {server_info->['clangd']},
-    \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-    \ })
-autocmd FileType cpp setlocal omnifunc=lsp#complete
-
 
 " ctrlp + memolist
 nmap ,mf :exe "CtrlP" g:memolist_path<cr><f5>
@@ -401,3 +381,44 @@ set statusline=%{anzu#search_status()}
 
 let g:airline_extensions=[ "ctrlp", "keymap", "netrw", "po", "quickfix", "tabline", "term", "whitespace", "wordcount", "anzu",]
 
+let g:airline#extensions#languageclient#enabled = 1
+let airline#extensions#languageclient#error_symbol = 'E:'
+let airline#extensions#languageclient#warning_symbol = 'W:'
+let airline#extensions#languageclient#show_line_numbers = 1
+let airline#extensions#languageclient#open_lnum_symbol = '(L'
+let airline#extensions#languageclient#close_lnum_symbol = ')'
+
+let g:LanguageClient_serverCommands = {
+    \ 'c': ['clangd', '-background-index'],
+    \ 'cpp': ['clangd', '-background-index'],
+    \ 'typescript': ['typescript-language-server', '--stdio'],
+    \ }
+
+let g:LanguageClient_loggingFile = expand('~/.vim/LanguageClient.log')
+"let g:LanguageClient_windowLogMessageLevel = "Log"
+"let g:LanguageClient_loggingLevel = 'DEBUG'
+let g:LanguageClient_selectionUI = 'quickfix'
+let g:LanguageClient_diagnosticsList = 'Disabled'
+
+highlight ALEError ctermfg=red guibg=black ctermbg=black gui=NONE cterm=bold
+highlight ALEWarning ctermfg=green guibg=black ctermbg=black gui=NONE cterm=bold
+highlight ALEInfo ctermfg=lightblue guibg=black ctermbg=black gui=NONE cterm=bold
+
+nnoremap <silent> <Space>h :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> <Space><Space> :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <Space>r :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> <Space><F2> :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> <Space>c :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> <Space>w :call LanguageClient#workspace_symbol('<C-r><C-w>')<CR>
+
+augroup cproject
+    autocmd!
+    autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+    autocmd FileType c setlocal completefunc=LanguageClient#complete
+augroup END
+
+augroup typescriptproject
+    autocmd!
+    autocmd FileType typescript setlocal completefunc=LanguageClient#complete
+    autocmd FileType typescript setlocal iskeyword=@,48-57,_,192-255
+augroup END

@@ -26,7 +26,9 @@ repo = 'vim-airline/vim-airline-themes'
 repo = 'ctrlpvim/ctrlp.vim'
 
 [[plugins]]
-repo = 'Rip-Rip/clang_complete'
+repo = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+build = 'bash install.sh'
 
 [[plugins]]
 repo = 't9md/vim-quickhl'
@@ -36,21 +38,6 @@ repo = 'gorodinskiy/vim-coloresque'
 
 [[plugins]]
 repo = 'MattesGroeger/vim-bookmarks'
-
-[[plugins]]
-repo = 'davidhalter/jedi-vim'
-
-[[plugins]]
-repo = 'prabirshrestha/async.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete-lsp.vim'
 
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
@@ -66,3 +53,4 @@ repo = 'micchy326/vim-dirvish-git'
 
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'
+
