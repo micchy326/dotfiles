@@ -46,10 +46,10 @@ repo = 'leafgarland/typescript-vim'
 repo = 'glidenote/memolist.vim'
 
 [[plugins]]
-repo = 'justinmk/vim-dirvish'
+repo = 'scrooloose/nerdtree'
 
 [[plugins]]
-repo = 'micchy326/vim-dirvish-git'
+repo = 'Xuyuanp/nerdtree-git-plugin'
 
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'
