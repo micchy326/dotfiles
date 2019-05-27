@@ -101,8 +101,8 @@ stty -ixon -ixoff
 export GTAGSCONF=/usr/local/share/gtags/gtags.conf
 export GTAGSLABEL=pygments
 
-# added by Anaconda3 4.3.1 installer
 export PATH="/opt/anaconda3/bin:$PATH"
+export PATH="~/.cargo/bin/:$PATH"
 
 if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook

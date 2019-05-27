@@ -353,6 +353,7 @@ let g:LanguageClient_serverCommands = {
     \ 'c': ['clangd', '-background-index'],
     \ 'cpp': ['clangd', '-background-index'],
     \ 'typescript': ['typescript-language-server', '--stdio'],
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
     \ }
 
 let g:LanguageClient_loggingFile = expand('~/.vim/LanguageClient.log')
@@ -382,6 +383,11 @@ augroup typescriptproject
     autocmd!
     autocmd FileType typescript setlocal completefunc=LanguageClient#complete
     autocmd FileType typescript setlocal iskeyword=@,48-57,_,192-255
+augroup END
+
+augroup rustproject
+    autocmd!
+    autocmd FileType rust setlocal completefunc=LanguageClient#complete
 augroup END
 
 " mapの一覧をファイル出力
