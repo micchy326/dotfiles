@@ -203,6 +203,7 @@ set laststatus=2
 set showtabline=2 " 常にタブラインを表示
 set t_Co=256 " この設定がないと色が正しく表示されない
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#anzu#enabled = 1
 let g:airline_theme='wombat'
@@ -396,3 +397,10 @@ function! MapList()
     silent verbose map
     redir END
 endfunction
+
+" 検索ヒット数と今の位置を表示する
+set shortmess-=S
+
+" NERDTree
+nnoremap <silent> - :NERDTreeToggle<CR>
+
