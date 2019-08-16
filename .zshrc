@@ -101,7 +101,6 @@ stty -ixon -ixoff
 export GTAGSCONF=/usr/local/share/gtags/gtags.conf
 export GTAGSLABEL=pygments
 
-export PATH="/opt/anaconda3/bin:$PATH"
 export PATH="~/.cargo/bin/:$PATH"
 
 if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
