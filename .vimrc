@@ -108,7 +108,6 @@ set smartcase
 set wrapscan
 
 "Input
-set cindent
 set shiftwidth=4
 set tabstop=4
 set expandtab "<Tab>の代わりに<Space>を挿入する
@@ -317,47 +316,64 @@ let airline#extensions#languageclient#show_line_numbers = 1
 let airline#extensions#languageclient#open_lnum_symbol = '(L'
 let airline#extensions#languageclient#close_lnum_symbol = ')'
 
-let g:LanguageClient_serverCommands = {
-    \ 'c': ['clangd', '-background-index'],
-    \ 'cpp': ['clangd', '-background-index'],
-    \ 'typescript': ['typescript-language-server', '--stdio'],
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ }
+" vim-lsp
+"let g:lsp_log_verbose = 1
+"let g:lsp_log_file = expand('~/.vim/vim-lsp.log')
+"let g:asyncomplete_log_file = expand('~/.vim/asyncomplete.log')
 
-let g:LanguageClient_loggingFile = expand('~/.vim/LanguageClient.log')
-"let g:LanguageClient_windowLogMessageLevel = "Log"
-"let g:LanguageClient_loggingLevel = 'DEBUG'
-let g:LanguageClient_selectionUI = 'quickfix'
-let g:LanguageClient_diagnosticsList = 'Disabled'
+nnoremap <silent> <Space>h :LspHover<CR>
+nnoremap <silent> <Space><Space> :LspDefinition<CR>
+nnoremap <silent> <Space>r :LspReference<CR>
+nnoremap <silent> <Space><F2> :LspRename<CR>
+nnoremap <silent> <Space>w :LspWorkspaceSymbol<CR>
 
-highlight ALEError ctermfg=red guibg=black ctermbg=black gui=NONE cterm=bold
-highlight ALEWarning ctermfg=green guibg=black ctermbg=black gui=NONE cterm=bold
-highlight ALEInfo ctermfg=lightblue guibg=black ctermbg=black gui=NONE cterm=bold
-
-nnoremap <silent> <Space>h :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> <Space><Space> :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <Space>r :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent> <Space><F2> :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> <Space>c :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> <Space>w :call LanguageClient#workspace_symbol('<C-r><C-w>')<CR>
-
+if executable('clangd')
+    autocmd User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd', '-background-index']},
+        \ 'whitelist': ['c', 'cpp'],
+        \ })
+    autocmd FileType c   imap <expr> .  ".\<C-X>\<C-O>"
+    autocmd FileType cpp imap <expr> .  ".\<C-X>\<C-O>"
+    autocmd FileType c   imap <expr> -> "->\<C-X>\<C-O>"
+    autocmd FileType cpp imap <expr> -> "->\<C-X>\<C-O>"
+endif
 augroup cproject
     autocmd!
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c
-    autocmd FileType c setlocal completefunc=LanguageClient#complete
+    autocmd FileType c setlocal omnifunc=lsp#complete
+    autocmd FileType c setlocal cindent
 augroup END
 
+if executable('typescript-language-server')
+    autocmd User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->['typescript-language-server', '--stdio']},
+        \ 'whitelist': ['typescript'],
+        \ })
+    autocmd FileType typescript imap <expr> . ".\<C-X>\<C-O>"
+    autocmd FileType typescript imap <expr> : ":\<C-X>\<C-O>"
+endif
 augroup typescriptproject
     autocmd!
-    autocmd FileType typescript setlocal completefunc=LanguageClient#complete
+    autocmd FileType typescript setlocal omnifunc=lsp#complete
     autocmd FileType typescript setlocal iskeyword=@,48-57,_,192-255
 augroup END
 
+if executable('rls')
+    autocmd User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+        \ 'whitelist': ['rust'],
+        \ })
+    autocmd FileType rust imap <expr> . ".\<C-X>\<C-O>"
+    autocmd FileType rust imap <expr> : ":\<C-X>\<C-O>"
+endif
 augroup rustproject
     autocmd!
-    autocmd FileType rust setlocal completefunc=LanguageClient#complete
+    autocmd FileType rust setlocal omnifunc=lsp#complete
 augroup END
-
 " mapの一覧をファイル出力
 function! MapList()
     redir! > ~/vim_keys.txt

@@ -26,11 +26,6 @@ repo = 'vim-airline/vim-airline-themes'
 repo = 'ctrlpvim/ctrlp.vim'
 
 [[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-rev = 'next'
-build = 'bash install.sh'
-
-[[plugins]]
 repo = 't9md/vim-quickhl'
 
 [[plugins]]
@@ -53,4 +48,10 @@ repo = 'Xuyuanp/nerdtree-git-plugin'
 
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
 
