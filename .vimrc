@@ -165,7 +165,7 @@ inoremap <silent> <ESC> <ESC>:call ImInActivate()<CR>
 
 " ESC to jj
 inoremap <silent> jj <ESC>:call ImInActivate()<CR>
-" 日本語入力で”っj”と入力してもEnterキーで確定させればインサートモードを抜、IMEを無効化
+" 日本語入力で”っj”と入力してもEnterキーで確定させればインサートモードを抜け、IMEを無効化
 inoremap <silent> っｊ <ESC>:call ImInActivate()<CR>
 inoremap <silent> っっｊ <ESC>:call ImInActivate()<CR>
 inoremap <silent> っっっｊ <ESC>:call ImInActivate()<CR>
@@ -292,39 +292,6 @@ set diffopt=internal,filler,algorithm:histogram,indent-heuristic
 nmap ,mf :exe "CtrlP" g:memolist_path<cr><f5>
 nmap ,mc :MemoNew<cr>
 nmap ,mg :MemoGrep<cr>
-
-
-" dirvish-git
-let g:dirvish_git_indicators = {
-\ 'Modified'  : 'Ṁ',
-\ 'Staged'    : 'Ṥ',
-\ 'Untracked' : 'Ṳ',
-\ 'Renamed'   : 'Ṟ',
-\ 'Unmerged'  : '⌥',
-\ 'Ignored'   : 'ỉ',
-\ 'Unknown'   : '?'
-\ }
-
-" Sort folders at the top: >
-let g:dirvish_mode = ':sort ,^.*[\/],'
-
-let g:modified = 'guifg=#FFFF00 ctermfg=226'
-let g:added = 'guifg=#5FFF87 ctermfg=84'
-let g:unmerged = 'guifg=#FF005F ctermfg=197'
-
-silent exe 'hi default DirvishGitModified '.g:modified
-silent exe 'hi default DirvishGitStaged '.g:added
-silent exe 'hi default DirvishGitRenamed '.g:modified
-silent exe 'hi default DirvishGitUnmerged '.g:unmerged
-silent exe 'hi default DirvishGitIgnored guifg=NONE guibg=NONE gui=NONE cterm=NONE ctermfg=NONE ctermbg=NONE'
-silent exe 'hi default DirvishGitUntracked guifg=NONE guibg=NONE gui=NONE cterm=NONE ctermfg=NONE ctermbg=NONE'
-" Untracked dir linked to Dirvish default dir color
-silent exe 'hi default link DirvishGitUntrackedDir DirvishPathTail'
-
-augroup DirVishHighlight
-  au!
-  autocmd FileType dirvish :hi Conceal ctermfg=123 ctermbg=0 guifg=LightGrey guibg=DarkGrey
-augroup END
 
 " anzu
 nmap n <Plug>(anzu-n)zz
