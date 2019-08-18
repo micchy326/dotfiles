@@ -321,6 +321,7 @@ let airline#extensions#languageclient#close_lnum_symbol = ')'
 "let g:lsp_log_file = expand('~/.vim/vim-lsp.log')
 "let g:asyncomplete_log_file = expand('~/.vim/asyncomplete.log')
 
+let g:lsp_diagnostics_echo_cursor = 1
 nnoremap <silent> <Space>h :LspHover<CR>
 nnoremap <silent> <Space><Space> :LspDefinition<CR>
 nnoremap <silent> <Space>r :LspReference<CR>
