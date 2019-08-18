@@ -387,4 +387,5 @@ set shortmess-=S
 
 " NERDTree
 nnoremap <silent> - :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
 
