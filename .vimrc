@@ -40,11 +40,13 @@ if dein#check_install()
 endif
 
 " .mdファイルをmarkdownに変更
-au BufRead,BufNewFile *.md set filetype=markdown
+autocmd BufRead,BufNewFile *.md set filetype=markdown
 
 colorscheme ron
 
 syntax on
+
+filetype plugin on
 
 set cursorline
 highlight CursorLine ctermfg=NONE guibg=#303030 ctermbg=236 gui=NONE cterm=NONE
@@ -328,17 +330,29 @@ nnoremap <silent> <Space>r :LspReference<CR>
 nnoremap <silent> <Space><F2> :LspRename<CR>
 nnoremap <silent> <Space>w :LspWorkspaceSymbol<CR>
 
-if executable('clangd')
-    autocmd User lsp_setup call lsp#register_server({
-        \ 'name': 'clangd',
-        \ 'cmd': {server_info->['clangd', '-background-index']},
-        \ 'whitelist': ['c', 'cpp'],
-        \ })
-    autocmd FileType c   imap <expr> .  ".\<C-X>\<C-O>"
-    autocmd FileType cpp imap <expr> .  ".\<C-X>\<C-O>"
-    autocmd FileType c   imap <expr> -> "->\<C-X>\<C-O>"
-    autocmd FileType cpp imap <expr> -> "->\<C-X>\<C-O>"
+if executable('ccls')
+   autocmd User lsp_setup call lsp#register_server({
+      \ 'name': 'ccls',
+      \ 'cmd': {server_info->['ccls']},
+      \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+      \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }},
+      \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+      \ })
 endif
+let g:ccls_levels = 2
+
+"if executable('clangd')
+"    autocmd User lsp_setup call lsp#register_server({
+"        \ 'name': 'clangd',
+"        \ 'cmd': {server_info->['clangd', '-background-index']},
+"        \ 'whitelist': ['c', 'cpp'],
+"        \ })
+"    autocmd FileType c   imap <expr> .  ".\<C-X>\<C-O>"
+"    autocmd FileType cpp imap <expr> .  ".\<C-X>\<C-O>"
+"    autocmd FileType c   imap <expr> -> "->\<C-X>\<C-O>"
+"    autocmd FileType cpp imap <expr> -> "->\<C-X>\<C-O>"
+"endif
+
 augroup cproject
     autocmd!
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c
@@ -388,4 +402,12 @@ set shortmess-=S
 " NERDTree
 nnoremap <silent> - :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
+
+" vim-ccls(yggdrasil)
+let g:yggdrasil_no_default_maps = 1
+autocmd FileType yggdrasil nmap <silent> <buffer> o <Plug>(yggdrasil-toggle-node)
+autocmd FileType yggdrasil nmap <silent> <buffer> O <Plug>(yggdrasil-open-subtree)
+autocmd FileType yggdrasil nmap <silent> <buffer> C <Plug>(yggdrasil-close-subtree)
+autocmd FileType yggdrasil nmap <silent> <buffer> <cr> <Plug>(yggdrasil-execute-node)
+autocmd FileType yggdrasil nnoremap <silent> <buffer> q :q<cr>
 
