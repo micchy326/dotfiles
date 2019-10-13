@@ -411,3 +411,18 @@ autocmd FileType yggdrasil nmap <silent> <buffer> C <Plug>(yggdrasil-close-subtr
 autocmd FileType yggdrasil nmap <silent> <buffer> <cr> <Plug>(yggdrasil-execute-node)
 autocmd FileType yggdrasil nnoremap <silent> <buffer> q :q<cr>
 
+" vim-multiple-cursors
+if !has('gui_running')
+  map n <A-n>
+  map a <A-a>
+endif
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_start_word_key      = '<A-n>'
+let g:multi_cursor_select_all_word_key = '<A-a>'
+let g:multi_cursor_start_key           = 'g<A-n>'
+let g:multi_cursor_select_all_key      = 'g<A-a>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<C-[>'
+

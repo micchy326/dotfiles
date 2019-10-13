@@ -57,3 +57,6 @@ repo = 'prabirshrestha/vim-lsp'
 
 [[plugins]]
 repo = 'm-pilia/vim-ccls'
+
+[[plugins]]
+repo = 'terryma/vim-multiple-cursors'
