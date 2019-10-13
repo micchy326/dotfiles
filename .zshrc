@@ -146,8 +146,6 @@ REPORTTIME=3
 # 全コマンドで correct 機能を無効化
 unsetopt correctall
 
-# 256色化
-TERM=xterm-256color
 
 # LS_COLORSの設定
 eval `dircolors ~/.dircolors-solarized/dircolors.ansi-universal`
@@ -188,3 +186,7 @@ fi
 
 # vimのclang_completeでpython3を用いる時のため、libpythonのパスを指定する
 export LD_PRELOAD=/opt/anaconda3/lib/libpython3.6m.so.1.0
+
+# true colorを有効化
+eval `tset -s xterm-24bits`
+

@@ -1,3 +1,4 @@
+scriptencoding utf-8
 " プラグイン読み込みの前にpython3の使用を宣言しておく
 " プラグインを先に読み込むとpython2が使用されてしまう
 call has('python3')
@@ -42,7 +43,9 @@ endif
 " .mdファイルをmarkdownに変更
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 
-colorscheme ron
+set termguicolors
+
+colorscheme koehler
 
 syntax on
 
@@ -50,6 +53,7 @@ filetype plugin on
 
 set cursorline
 highlight CursorLine ctermfg=NONE guibg=#303030 ctermbg=236 gui=NONE cterm=NONE
+highlight Search     term=reverse ctermfg=15 ctermbg=9 guifg=Black guibg=Yellow
 
 " 縦分割の線色設定
 set fillchars=vert:┃,fold:-
@@ -139,6 +143,7 @@ set wildmode=list,longest
 "http://4geek.net/set-gvims-vimrc-on-windows/
 set list "タブ、行末等の不可視文字を表示する
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:%
+highlight SpecialKey guibg=NONE guifg=Gray40
 
 "全角スペースをハイライト
 "https://shobon.hatenablog.com/entry/2014/06/24/221750
@@ -202,12 +207,11 @@ set ttymouse=sgr
 " airlineの設定
 set laststatus=2
 set showtabline=2 " 常にタブラインを表示
-set t_Co=256 " この設定がないと色が正しく表示されない
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#anzu#enabled = 1
-let g:airline_theme='wombat'
+let g:airline_theme='simple'
 let g:airline_powerline_fonts = 1
 
 
@@ -243,12 +247,10 @@ endfunction
 set completeopt=menuone
 
 " 補完メニューの色
-hi Pmenu ctermbg=23 cterm=BOLD
-hi Pmenu ctermfg=209 cterm=BOLD
-hi PmenuSel ctermbg=29
-hi PmenuSel ctermfg=209 cterm=BOLD
-hi PmenuSbar ctermbg=22
-hi PmenuThumb ctermfg=3
+hi Pmenu ctermfg=209 ctermbg=23 guibg=#191970 guifg=#fAfAff
+hi PmenuSel ctermfg=209 ctermbg=29 guifg=#000000
+hi PmenuSbar ctermbg=22 guibg=#708090
+hi PmenuThumb ctermfg=3 guifg=#000000
 
 " vim-quickhl
 nmap <Space>m <Plug>(quickhl-manual-this)
@@ -329,6 +331,8 @@ nnoremap <silent> <Space><Space> :LspDefinition<CR>
 nnoremap <silent> <Space>r :LspReference<CR>
 nnoremap <silent> <Space><F2> :LspRename<CR>
 nnoremap <silent> <Space>w :LspWorkspaceSymbol<CR>
+let g:lsp_highlight_references_enabled = 1
+highlight lspReference ctermfg=Black guifg=Black ctermbg=lightgray guibg=#dddddd
 
 if executable('ccls')
    autocmd User lsp_setup call lsp#register_server({

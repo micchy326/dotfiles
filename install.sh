@@ -17,3 +17,4 @@ git pull > /dev/null
 popd
 ln -sf ~/dotfiles/rkj-repos-custom.zsh-theme ~/.oh-my-zsh/custom/themes/
 
+tic -x -o ~/.terminfo terminfo-24bit.src
