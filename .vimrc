@@ -133,7 +133,7 @@ cnoremap <C-e> <End>
 
 " コマンドモード時のTAB補完をzsh風にする
 set wildmenu
-set wildmode=full
+set wildmode=list,longest
 
 "空白文字を表示
 "http://4geek.net/set-gvims-vimrc-on-windows/
