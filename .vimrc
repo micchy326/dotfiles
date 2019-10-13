@@ -382,13 +382,12 @@ if executable('rls')
         \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
         \ 'whitelist': ['rust'],
         \ })
-    autocmd FileType rust imap <expr> . ".\<C-X>\<C-O>"
-    autocmd FileType rust imap <expr> : ":\<C-X>\<C-O>"
 endif
 augroup rustproject
     autocmd!
     autocmd FileType rust setlocal omnifunc=lsp#complete
 augroup END
+
 " mapの一覧をファイル出力
 function! MapList()
     redir! > ~/vim_keys.txt
