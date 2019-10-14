@@ -62,6 +62,14 @@ highlight VertSplit ctermfg=black ctermbg=156
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
+" enable Alt + char mappings
+if !has('gui_running')
+  map n <A-n>
+  map a <A-a>
+  map j <A-j>
+  map k <A-k>
+endif
+
 " gtags-cscope.vim settings
 set cscopetag
 let GtagsCscope_Auto_Load = 1
@@ -331,6 +339,8 @@ nnoremap <silent> <Space><Space> :LspDefinition<CR>
 nnoremap <silent> <Space>r :LspReference<CR>
 nnoremap <silent> <Space><F2> :LspRename<CR>
 nnoremap <silent> <Space>w :LspWorkspaceSymbol<CR>
+nnoremap <silent> <A-j> :LspNextReference<CR>
+nnoremap <silent> <A-k> :LspPreviousReference<CR>
 let g:lsp_highlight_references_enabled = 1
 highlight lspReference ctermfg=Black guifg=Black ctermbg=lightgray guibg=#dddddd
 
@@ -415,10 +425,6 @@ autocmd FileType yggdrasil nmap <silent> <buffer> <cr> <Plug>(yggdrasil-execute-
 autocmd FileType yggdrasil nnoremap <silent> <buffer> q :q<cr>
 
 " vim-multiple-cursors
-if !has('gui_running')
-  map n <A-n>
-  map a <A-a>
-endif
 let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_start_word_key      = '<A-n>'
 let g:multi_cursor_select_all_word_key = '<A-a>'
