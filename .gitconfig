@@ -1,0 +1,16 @@
+[user]
+	name = micchy326
+	email = micchy326@gmail.com
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = true
+[merge]
+	tool = vimdiff
+[mergetool]
+	prompt = false
+[difftool "dirdiff"]
+	cmd = vim -f '+next' '+execute \"DirDiff\" argv(0) argv(1)' $LOCAL $REMOTE
+[alias]
+	dirdiff = difftool -d -t dirdiff
+
