@@ -260,6 +260,10 @@ hi PmenuSel ctermfg=209 ctermbg=29 guifg=#000000
 hi PmenuSbar ctermbg=22 guibg=#708090
 hi PmenuThumb ctermfg=3 guifg=#000000
 
+" 補完時のキーマッピングを変更(<C-p>, <C-n>を使っても候補が入力されなくする)
+inoremap <C-p> <C-R>=pumvisible() ? "\<lt>Up>" : "\<lt>C-p>"<CR>
+inoremap <C-n> <C-R>=pumvisible() ? "\<lt>Down>" : "\<lt>C-n>"<CR>
+
 " vim-quickhl
 nmap <Space>m <Plug>(quickhl-manual-this)
 xmap <Space>m <Plug>(quickhl-manual-this)
@@ -434,4 +438,5 @@ let g:multi_cursor_next_key            = '<C-n>'
 let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<C-[>'
+
 
