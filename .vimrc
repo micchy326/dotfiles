@@ -121,6 +121,10 @@ set softtabstop=4 "expandtabで<Tab>が対応する<Space>の数
 set backspace=indent,eol,start
 set whichwrap=b,s,h,l,<,>,[,]
 
+"Spell check
+set spell
+set spelllang=en,cjk
+
 "挿入モード中の移動コマンド
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
