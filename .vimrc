@@ -70,14 +70,6 @@ if !has('gui_running')
   map k <A-k>
 endif
 
-" gtags-cscope.vim settings
-set cscopetag
-let GtagsCscope_Auto_Load = 1
-let GtagsCscope_Auto_Map = 1
-let GtagsCscope_Quiet = 1
-let GtagsCscope_Ignore_Case = 0
-let GtagsCscope_Absolute_Path = 0
-
 " gtags settings
 map <F2> :cclose<CR>
 map <F4> :copen<CR>
@@ -135,7 +127,7 @@ inoremap <C-e> <End>
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 
-"コマンドラインでのemacsバインディング 
+"コマンドラインでのemacsバインディング
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 cnoremap <C-b> <Left>
