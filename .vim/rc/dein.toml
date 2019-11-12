@@ -60,3 +60,6 @@ repo = 'm-pilia/vim-ccls'
 
 [[plugins]]
 repo = 'terryma/vim-multiple-cursors'
+
+[[plugins]]
+repo = 'skanehira/translate.vim'

@@ -101,7 +101,9 @@ stty -ixon -ixoff
 export GTAGSCONF=/usr/local/share/gtags/gtags.conf
 export GTAGSLABEL=pygments
 
-export PATH="~/.cargo/bin/:$PATH"
+export PATH="$HOME/.cargo/bin/:$HOME/.go/bin/:$PATH"
+export GOPATH=$HOME/.go
+export GOBIN=$GOPATH/bin
 
 if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
