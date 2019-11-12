@@ -315,7 +315,7 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 " statusline
 set statusline=%{anzu#search_status()}
 
-let g:airline_extensions=[ "ctrlp", "keymap", "netrw", "po", "quickfix", "tabline", "term", "whitespace", "wordcount", "anzu",]
+let g:airline_extensions=[ "ctrlp", "keymap", "netrw", "po", "quickfix", "tabline", "term", "whitespace", "wordcount", "anzu", "branch"]
 
 let g:airline#extensions#languageclient#enabled = 1
 let airline#extensions#languageclient#error_symbol = 'E:'
@@ -323,6 +323,8 @@ let airline#extensions#languageclient#warning_symbol = 'W:'
 let airline#extensions#languageclient#show_line_numbers = 1
 let airline#extensions#languageclient#open_lnum_symbol = '(L'
 let airline#extensions#languageclient#close_lnum_symbol = ')'
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#empty_message = 'vcs empty'
 
 " vim-lsp
 "let g:lsp_log_verbose = 1
