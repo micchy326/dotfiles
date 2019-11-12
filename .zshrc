@@ -190,3 +190,6 @@ export LD_PRELOAD=/opt/anaconda3/lib/libpython3.6m.so.1.0
 # true colorを有効化
 eval `tset -s xterm-24bits`
 
+# vim-dirdiffでフォルダ間比較を容易に行う
+alias vimdirdiff="vim -f '+next' '+execute \"DirDiff\" argv(0) argv(1)' $LOCAL $REMOTE"
+
