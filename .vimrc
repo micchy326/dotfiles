@@ -124,6 +124,7 @@ set whichwrap=b,s,h,l,<,>,[,]
 "Spell check
 set spell
 set spelllang=en,cjk
+autocmd FileType qf set nospell
 
 "挿入モード中の移動コマンド
 inoremap <C-a> <Home>
@@ -203,6 +204,8 @@ set scrolloff=3
 " バッファ切り替えを高速に
 nnoremap <silent> <C-j> :bprev<CR>
 nnoremap <silent> <C-k> :bnext<CR>
+tnoremap <silent> <C-j> <C-w>:bprev<CR>
+tnoremap <silent> <C-k> <C-w>:bnext<CR>
 
 " mouseを使用する
 set mouse=a
@@ -329,6 +332,7 @@ let airline#extensions#languageclient#open_lnum_symbol = '(L'
 let airline#extensions#languageclient#close_lnum_symbol = ')'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = 'vcs empty'
+let g:airline#extensions#tabline#keymap_ignored_filetypes = ['vimfiler', 'nerdtree']
 
 " vim-lsp
 "let g:lsp_log_verbose = 1
@@ -345,6 +349,11 @@ nnoremap <silent> <A-j> :LspNextReference<CR>
 nnoremap <silent> <A-k> :LspPreviousReference<CR>
 let g:lsp_highlight_references_enabled = 1
 highlight lspReference ctermfg=Black guifg=Black ctermbg=lightgray guibg=#dddddd
+
+function! AirlineLspSetting()
+    let g:airline_section_warning = '⚠ %{lsp#get_buffer_diagnostics_counts()["warning"]}'
+    let g:airline_section_error = '✗ %{lsp#get_buffer_diagnostics_counts()["error"]}%{lsp#get_buffer_first_error_line()? "-".lsp#get_buffer_first_error_line():""}'
+endfunction
 
 if executable('ccls')
    autocmd User lsp_setup call lsp#register_server({
@@ -374,6 +383,7 @@ augroup cproject
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c
     autocmd FileType c setlocal omnifunc=lsp#complete
     autocmd FileType c setlocal cindent
+    autocmd FileType c call AirlineLspSetting()
 augroup END
 
 if executable('typescript-language-server')
@@ -389,6 +399,7 @@ augroup typescriptproject
     autocmd!
     autocmd FileType typescript setlocal omnifunc=lsp#complete
     autocmd FileType typescript setlocal iskeyword=@,48-57,_,192-255
+    autocmd FileType typescript call AirlineLspSetting()
 augroup END
 
 if executable('rls')
@@ -402,6 +413,7 @@ endif
 augroup rustproject
     autocmd!
     autocmd FileType rust setlocal omnifunc=lsp#complete
+    autocmd FileType rust call AirlineLspSetting()
 augroup END
 
 " mapの一覧をファイル出力
@@ -437,7 +449,29 @@ let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<C-[>'
 
-
 " vim-dirdiff
 let g:DirDiffExcludes = "*.o,*.a,*.swp,.git,.svn,GPATH,GRTAGS,GTAGS"
+augroup dirdiffgroup
+    autocmd!
+    autocmd FileType dirdiff set nospell
+augroup END
+
+" vim-fugitive
+let g:fugitive_no_maps = 1
+augroup fugitivegroup
+    autocmd!
+    autocmd FileType git set nospell
+    autocmd FileType git set nofoldenable
+augroup END
+
+let g:airline_theme_patch_func = 'AirlineThemePatch'
+function! AirlineThemePatch(palette)
+    for mode in ["inactive", "inactive_modified", "insert", "insert_modified", "insert_paste", "normal", "normal_modified", "replace", "replace_modified", "visual", "visual_modified", ]
+        let a:palette[mode]['airline_warning'] = [ '#000000', '#ffd700', 232, 166 ]
+        let a:palette[mode]['airline_error'] = [ '#000000', '#ff4500', 232, 160 ]
+    endfor
+endfunction
+ 
+autocmd TerminalOpen * set nospell
+packadd termdebug
 
