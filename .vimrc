@@ -475,3 +475,7 @@ endfunction
 autocmd TerminalOpen * set nospell
 packadd termdebug
 
+" spellの登録時に強制的に小文字で登録する
+" 小文字で登録することで大文字にもそのスペルが適用される
+nnoremap zg :exe('spellgood '.tolower('<C-r><C-w>'))<CR>
+
