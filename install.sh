@@ -10,7 +10,7 @@ ln -sf ~/dotfiles/settings.json ~/.config/Code/User/settings.json
 ln -sf ~/dotfiles/keybindings.json ~/.config/Code/User/keybindings.json
 ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
 if [[ ! -d ~/.dircolors-solarized ]];then
-    git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors-solarized
+    git clone https://github.com/micchy326/dircolors-solarized ~/.dircolors-solarized
 fi
 
 pushd ~/.dircolors-solarized
