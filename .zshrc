@@ -188,9 +188,6 @@ if [[ !${TMUX} ]]; then
     display-message "💾Started logging to${LOGDIR}/${LOGFILE}"
 fi
 
-# vimのclang_completeでpython3を用いる時のため、libpythonのパスを指定する
-export LD_PRELOAD=/opt/anaconda3/lib/libpython3.6m.so.1.0
-
 # vim-dirdiffでフォルダ間比較を容易に行う
 alias vimdirdiff="vim -f '+next' '+execute \"DirDiff\" argv(0) argv(1)' $LOCAL $REMOTE"
 

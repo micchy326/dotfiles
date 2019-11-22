@@ -479,3 +479,9 @@ packadd termdebug
 " 小文字で登録することで大文字にもそのスペルが適用される
 nnoremap zg :exe('spellgood '.tolower('<C-r><C-w>'))<CR>
 
+" Sourcetrailの設定
+let g:sourcetrail_autostart = 1
+let g:sourcetrail_ip = "localhost"
+let g:sourcetrail_to_vim_port = 6666
+let g:vim_to_sourcetrail_port = 6667
+
