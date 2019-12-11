@@ -275,8 +275,6 @@ xmap <Space>M <Plug>(quickhl-manual-reset)
 nmap <Space>j <Plug>(quickhl-cword-toggle)
 
 nmap <Space>] <Plug>(quickhl-tag-toggle)
-
-map H <Plug>(operator-quickhl-manual-this-motion)
 " 上から順にハイライト時の色として使用される。抵抗のカラーコードと同じ
 let g:quickhl_manual_colors = [
    \ "gui=bold ctermfg=15 ctermbg=172 guibg=#8A4B08 guifg=#ffffff",
