@@ -220,7 +220,15 @@ let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#anzu#enabled = 1
 let g:airline_theme='simple'
 let g:airline_powerline_fonts = 1
-
+nmap <Space>1 <Plug>AirlineSelectTab1
+nmap <Space>2 <Plug>AirlineSelectTab2
+nmap <Space>3 <Plug>AirlineSelectTab3
+nmap <Space>4 <Plug>AirlineSelectTab4
+nmap <Space>5 <Plug>AirlineSelectTab5
+nmap <Space>6 <Plug>AirlineSelectTab6
+nmap <Space>7 <Plug>AirlineSelectTab7
+nmap <Space>8 <Plug>AirlineSelectTab8
+nmap <Space>9 <Plug>AirlineSelectTab9
 
 " ctrlp settings
 let g:ctrlp_map = '<C-x>'
