@@ -353,6 +353,8 @@ nnoremap <silent> <Space><F2> :LspRename<CR>
 nnoremap <silent> <Space>w :LspWorkspaceSymbol<CR>
 nnoremap <silent> <A-j> :LspNextReference<CR>
 nnoremap <silent> <A-k> :LspPreviousReference<CR>
+nnoremap <silent> <Space>f ggVG:'<,'>LspDocumentRangeFormat<CR>
+vnoremap <silent> <Space>f :'<,'>LspDocumentRangeFormat<CR>
 let g:lsp_highlight_references_enabled = 1
 highlight lspReference ctermfg=Black guifg=Black ctermbg=lightgray guibg=#dddddd
 
@@ -396,7 +398,7 @@ if executable('typescript-language-server')
     autocmd User lsp_setup call lsp#register_server({
         \ 'name': 'typescript-language-server',
         \ 'cmd': {server_info->['typescript-language-server', '--stdio']},
-        \ 'whitelist': ['typescript'],
+        \ 'whitelist': ['javascript', 'typescript'],
         \ })
     autocmd FileType typescript imap <expr> . ".\<C-X>\<C-O>"
     autocmd FileType typescript imap <expr> : ":\<C-X>\<C-O>"
@@ -420,6 +422,34 @@ augroup rustproject
     autocmd!
     autocmd FileType rust setlocal omnifunc=lsp#complete
     autocmd FileType rust call AirlineLspSetting()
+augroup END
+
+if executable('vscode-html-languageserver')
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'html-languageserver',
+    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'vscode-html-languageserver --stdio']},
+    \ 'initialization_options': {"provideFormatter": v:true, "embeddedLanguages": ["html"]},
+    \ 'whitelist': ['html'],
+    \ })
+endif
+augroup htmlproject
+    autocmd!
+    autocmd FileType html setlocal omnifunc=lsp#complete
+    autocmd FileType html call AirlineLspSetting()
+augroup END
+
+if executable('vscode-json-languageserver')
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'json-languageserver',
+    \ 'initialization_options': {"provideFormatter": v:true},
+    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'vscode-json-languageserver --stdio']},
+    \ 'whitelist': ['json'],
+    \ })
+endif
+augroup jsonproject
+    autocmd!
+    autocmd FileType json setlocal omnifunc=lsp#complete
+    autocmd FileType json call AirlineLspSetting()
 augroup END
 
 " mapの一覧をファイル出力
