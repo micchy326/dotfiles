@@ -121,11 +121,6 @@ set softtabstop=4 "expandtabで<Tab>が対応する<Space>の数
 set backspace=indent,eol,start
 set whichwrap=b,s,h,l,<,>,[,]
 
-"Spell check
-set spell
-set spelllang=en,cjk
-autocmd FileType qf set nospell
-
 "挿入モード中の移動コマンド
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
@@ -489,14 +484,12 @@ let g:multi_cursor_quit_key            = '<C-[>'
 let g:DirDiffExcludes = "*.o,*.a,*.swp,.git,.svn,GPATH,GRTAGS,GTAGS"
 augroup dirdiffgroup
     autocmd!
-    autocmd FileType dirdiff set nospell
 augroup END
 
 " vim-fugitive
 let g:fugitive_no_maps = 1
 augroup fugitivegroup
     autocmd!
-    autocmd FileType git set nospell
     autocmd FileType git set nofoldenable
 augroup END
 
@@ -508,16 +501,16 @@ function! AirlineThemePatch(palette)
     endfor
 endfunction
  
-autocmd TerminalOpen * set nospell
 packadd termdebug
-
-" spellの登録時に強制的に小文字で登録する
-" 小文字で登録することで大文字にもそのスペルが適用される
-nnoremap zg :exe('spellgood '.tolower('<C-r><C-w>'))<CR>
 
 " Sourcetrailの設定
 let g:sourcetrail_autostart = 1
 let g:sourcetrail_ip = "localhost"
 let g:sourcetrail_to_vim_port = 6666
 let g:vim_to_sourcetrail_port = 6667
+
+" spelunker
+let g:spelunker_check_type = 2
+let g:ctrlp_extensions = get(g:, 'ctrlp_extensions', [])
+      \ + ['spelunker']"
 

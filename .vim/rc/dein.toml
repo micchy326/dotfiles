@@ -69,3 +69,6 @@ repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'CoatiSoftware/vim-sourcetrail'
+
+[[plugins]]
+repo = 'kamykn/spelunker.vim'
