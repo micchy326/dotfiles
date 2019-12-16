@@ -8,7 +8,7 @@ repo = 'micchy326/gtags.vim'
 repo = 'micchy326/gtags-cscope.vim'
 
 [[plugins]]
-repo = 'micchy326/vim-dirdiff'
+repo = 'will133/vim-dirdiff'
 
 [[plugins]]
 repo = 'Lokaltog/vim-easymotion'

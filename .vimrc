@@ -481,6 +481,7 @@ let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<C-[>'
 
 " vim-dirdiff
+let g:DirDiffForceLang = "C LC_ALL=C"
 let g:DirDiffExcludes = "*.o,*.a,*.swp,.git,.svn,GPATH,GRTAGS,GTAGS"
 augroup dirdiffgroup
     autocmd!
