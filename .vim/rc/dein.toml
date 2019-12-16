@@ -72,3 +72,6 @@ repo = 'CoatiSoftware/vim-sourcetrail'
 
 [[plugins]]
 repo = 'kamykn/spelunker.vim'
+
+[[plugins]]
+repo = 'greymd/oscyank.vim'
