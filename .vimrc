@@ -345,6 +345,7 @@ nnoremap <silent> <Space>h :LspHover<CR>
 nnoremap <silent> <Space><Space> :LspDefinition<CR>
 nnoremap <silent> <Space>r :LspReference<CR>
 nnoremap <silent> <Space><F2> :LspRename<CR>
+nnoremap <silent> <Space>p :LspPeekDefinition<CR>
 nnoremap <silent> <Space>w :LspWorkspaceSymbol<CR>
 nnoremap <silent> <A-j> :LspNextReference<CR>
 nnoremap <silent> <A-k> :LspPreviousReference<CR>
