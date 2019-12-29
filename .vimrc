@@ -359,28 +359,40 @@ function! AirlineLspSetting()
     let g:airline_section_error = '✗ %{lsp#get_buffer_diagnostics_counts()["error"]}%{lsp#get_buffer_first_error_line()? "-".lsp#get_buffer_first_error_line():""}'
 endfunction
 
-if executable('ccls')
-   autocmd User lsp_setup call lsp#register_server({
-      \ 'name': 'ccls',
-      \ 'cmd': {server_info->['ccls']},
-      \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-      \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }},
-      \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-      \ })
+let g:use_ccls = v:true
+if g:use_ccls
+    if executable('ccls')
+       autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'ccls',
+          \ 'cmd': {server_info->['ccls']},
+          \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+          \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }},
+          \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+          \ })
+    endif
+    let g:ccls_levels = 2
+else
+    if executable('clangd')
+        autocmd User lsp_setup call lsp#register_server({
+            \ 'name': 'clangd',
+            \ 'cmd': {server_info->['clangd', '--header-insertion-decorators']},
+            \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+            \ 'whitelist': ['c', 'cpp'],
+            \ })
+        function! HandleClangdSwitchSourceHeader(data) abort
+            let l:file = a:data['response']['result']
+            let l:file = substitute(l:file, "file://", "", "")
+            if l:file != v:null
+                execute 'edit ' . l:file
+            else
+                echo 'switch file not found'
+            endif
+        endfunction
+        function! LspClangdSwitchSourceHeader() abort
+            call lsp#send_request('clangd', { 'method': 'textDocument/switchSourceHeader', 'params':{'uri': 'file://' .expand("%:p")}, 'on_notification': function('HandleClangdSwitchSourceHeader')})
+        endfunction
+    endif
 endif
-let g:ccls_levels = 2
-
-"if executable('clangd')
-"    autocmd User lsp_setup call lsp#register_server({
-"        \ 'name': 'clangd',
-"        \ 'cmd': {server_info->['clangd', '-background-index']},
-"        \ 'whitelist': ['c', 'cpp'],
-"        \ })
-"    autocmd FileType c   imap <expr> .  ".\<C-X>\<C-O>"
-"    autocmd FileType cpp imap <expr> .  ".\<C-X>\<C-O>"
-"    autocmd FileType c   imap <expr> -> "->\<C-X>\<C-O>"
-"    autocmd FileType cpp imap <expr> -> "->\<C-X>\<C-O>"
-"endif
 
 augroup cproject
     autocmd!
@@ -388,6 +400,7 @@ augroup cproject
     autocmd FileType c setlocal omnifunc=lsp#complete
     autocmd FileType c setlocal cindent
     autocmd FileType c call AirlineLspSetting()
+    nnoremap <silent> <Space>s :call LspClangdSwitchSourceHeader()<CR>
 augroup END
 
 if executable('typescript-language-server')
