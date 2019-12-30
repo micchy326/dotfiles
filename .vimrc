@@ -226,10 +226,10 @@ nmap <Space>8 <Plug>AirlineSelectTab8
 nmap <Space>9 <Plug>AirlineSelectTab9
 
 " ctrlp settings
-let g:ctrlp_map = '<C-x>'
-let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_map = '<Space>x'
+let g:ctrlp_cmd = 'CtrlPMRU'
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = ['GTAGS']
+let g:ctrlp_root_markers = ['GTAGS', 'compile_commands.json', '.git']
 let g:ctrlp_show_hidden = 1
 "let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 let g:ctrlp_lazy_update = 1
@@ -239,7 +239,6 @@ let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_custom_ignore = {
   \ 'func': 'CtrlPIgnoreFilter',
   \ }
-"map <c-x> :CtrlP<CR>
 
 function! CtrlPIgnoreFilter(item, type) abort
     let l:cnv_item = tr(a:item, "\\", "/")
