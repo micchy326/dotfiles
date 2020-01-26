@@ -191,3 +191,6 @@ fi
 # vim-dirdiffでフォルダ間比較を容易に行う
 alias vimdirdiff="vim -f '+next' '+execute \"DirDiff\" argv(0) argv(1)' $LOCAL $REMOTE"
 
+
+export MANPAGER="vim -M +MANPAGER -"
+

@@ -45,19 +45,26 @@ autocmd BufRead,BufNewFile *.md set filetype=markdown
 
 set termguicolors
 
-colorscheme koehler
-
-syntax on
-
 filetype plugin on
 
-set cursorline
-highlight CursorLine ctermfg=NONE guibg=#303030 ctermbg=236 gui=NONE cterm=NONE
-highlight Search     term=reverse ctermfg=15 ctermbg=9 guifg=Black guibg=Yellow
-
-" 縦分割の線色設定
-set fillchars=vert:┃,fold:-
-highlight VertSplit ctermfg=black ctermbg=156
+colorscheme koehler
+augroup fix_koehler
+    autocmd!
+    autocmd ColorScheme koehler set cursorline
+    autocmd ColorScheme koehler highlight CursorLine ctermfg=NONE guibg=#303030 ctermbg=236 gui=NONE cterm=NONE term=NONE
+    autocmd ColorScheme koehler highlight Search     term=reverse ctermfg=15 ctermbg=9 guifg=Black guibg=Yellow
+    " 補完メニューの色
+    autocmd ColorScheme koehler highlight Pmenu ctermfg=209 ctermbg=23 guibg=#191970 guifg=#fAfAff
+    autocmd ColorScheme koehler highlight PmenuSel ctermfg=209 ctermbg=29 guifg=#000000
+    autocmd ColorScheme koehler highlight PmenuSbar ctermbg=22 guibg=#708090
+    autocmd ColorScheme koehler highlight PmenuThumb ctermfg=3 guifg=#000000
+    " 縦分割の線色設定
+    autocmd ColorScheme koehler set fillchars=vert:┃,fold:-
+    autocmd ColorScheme koehler highlight VertSplit ctermfg=black ctermbg=156
+    autocmd ColorScheme koehler highlight SpecialKey guibg=NONE guifg=Gray40
+    autocmd ColorScheme koehler highlight lspReference ctermfg=Black guifg=Black ctermbg=lightgray guibg=#dddddd
+augroup END
+syntax on
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
@@ -143,7 +150,6 @@ set wildmode=list,longest
 "http://4geek.net/set-gvims-vimrc-on-windows/
 set list "タブ、行末等の不可視文字を表示する
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:%
-highlight SpecialKey guibg=NONE guifg=Gray40
 
 "全角スペースをハイライト
 "https://shobon.hatenablog.com/entry/2014/06/24/221750
@@ -255,12 +261,6 @@ endfunction
 " previewウインドウをひとまず無効化
 set completeopt=menuone
 
-" 補完メニューの色
-hi Pmenu ctermfg=209 ctermbg=23 guibg=#191970 guifg=#fAfAff
-hi PmenuSel ctermfg=209 ctermbg=29 guifg=#000000
-hi PmenuSbar ctermbg=22 guibg=#708090
-hi PmenuThumb ctermfg=3 guifg=#000000
-
 " 補完時のキーマッピングを変更(<C-p>, <C-n>を使っても候補が入力されなくする)
 inoremap <C-p> <C-R>=pumvisible() ? "\<lt>Up>" : "\<lt>C-p>"<CR>
 inoremap <C-n> <C-R>=pumvisible() ? "\<lt>Down>" : "\<lt>C-n>"<CR>
@@ -351,7 +351,6 @@ nnoremap <silent> <A-k> :LspPreviousReference<CR>
 nnoremap <silent> <Space>f ggVG:'<,'>LspDocumentRangeFormat<CR>
 vnoremap <silent> <Space>f :'<,'>LspDocumentRangeFormat<CR>
 let g:lsp_highlight_references_enabled = 1
-highlight lspReference ctermfg=Black guifg=Black ctermbg=lightgray guibg=#dddddd
 
 function! AirlineLspSetting()
     let g:airline_section_warning = '⚠ %{lsp#get_buffer_diagnostics_counts()["warning"]}'
@@ -527,4 +526,11 @@ let g:vim_to_sourcetrail_port = 6667
 let g:spelunker_check_type = 2
 let g:ctrlp_extensions = get(g:, 'ctrlp_extensions', [])
       \ + ['spelunker']"
+
+runtime ftplugin/man.vim
+augroup manpage 
+    autocmd!
+    autocmd FileType man set tabstop=8
+    autocmd FileType man set nolist
+augroup END
 
