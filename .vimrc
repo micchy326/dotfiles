@@ -47,7 +47,24 @@ set termguicolors
 
 filetype plugin on
 
-colorscheme koehler
+set background=dark
+colorscheme tender
+augroup fix_tender
+    autocmd!
+    autocmd ColorScheme tender set cursorline
+    autocmd ColorScheme tender highlight CursorLine guibg=#303030 gui=NONE
+    autocmd ColorScheme tender highlight! link Search PmenuSel
+    autocmd ColorScheme tender set fillchars=vert:┃,fold:-
+    autocmd ColorScheme tender highlight VertSplit guifg=#999999
+    autocmd ColorScheme tender highlight lspReference guifg=Black guibg=#aaaaaa
+    autocmd ColorScheme tender highlight Comment guifg=#aaaaaa
+    autocmd ColorScheme tender highlight LineNr guifg=#999999
+    autocmd ColorScheme tender highlight SignColumn guifg=#000000 guibg=#3c3c3c
+    autocmd ColorScheme tender highlight Visual guibg=#6a6a6a
+    autocmd ColorScheme tender highlight Pmenu guifg=#282828 guibg=#73cef4
+    autocmd ColorScheme tender highlight PopupWindow guifg=#ffffff guibg=#232b4c
+augroup END
+
 augroup fix_koehler
     autocmd!
     autocmd ColorScheme koehler set cursorline
@@ -219,7 +236,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#anzu#enabled = 1
-let g:airline_theme='simple'
+let g:airline_theme = 'tender'
 let g:airline_powerline_fonts = 1
 nmap <Space>1 <Plug>AirlineSelectTab1
 nmap <Space>2 <Plug>AirlineSelectTab2
@@ -333,6 +350,11 @@ let airline#extensions#languageclient#close_lnum_symbol = ')'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = 'vcs empty'
 let g:airline#extensions#tabline#keymap_ignored_filetypes = ['vimfiler', 'nerdtree']
+
+if !exists('g:airline_symbols')
+let g:airline_symbols = {}
+endif
+let g:airline_symbols.dirty='⚒'
 
 " vim-lsp
 "let g:lsp_log_verbose = 1
@@ -505,15 +527,16 @@ augroup fugitivegroup
     autocmd!
     autocmd FileType git set nofoldenable
 augroup END
+  let g:airline#extensions#fugitiveline#enabled = 0
 
 let g:airline_theme_patch_func = 'AirlineThemePatch'
 function! AirlineThemePatch(palette)
-    for mode in ["inactive", "inactive_modified", "insert", "insert_modified", "insert_paste", "normal", "normal_modified", "replace", "replace_modified", "visual", "visual_modified", ]
+    for mode in [ "inactive", "insert", "normal", "replace", "visual",]
         let a:palette[mode]['airline_warning'] = [ '#000000', '#ffd700', 232, 166 ]
         let a:palette[mode]['airline_error'] = [ '#000000', '#ff4500', 232, 160 ]
     endfor
 endfunction
- 
+
 packadd termdebug
 
 " Sourcetrailの設定
@@ -528,9 +551,16 @@ let g:ctrlp_extensions = get(g:, 'ctrlp_extensions', [])
       \ + ['spelunker']"
 
 runtime ftplugin/man.vim
-augroup manpage 
+augroup manpage
     autocmd!
     autocmd FileType man set tabstop=8
     autocmd FileType man set nolist
 augroup END
+
+augroup lsp_float_colours
+    autocmd!
+    autocmd User lsp_float_opened
+        \ call win_execute(lsp#ui#vim#output#getpreviewwinid(),
+        \		       'setlocal wincolor=PopupWindow')
+augroup end
 

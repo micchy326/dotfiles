@@ -75,3 +75,7 @@ repo = 'kamykn/spelunker.vim'
 
 [[plugins]]
 repo = 'greymd/oscyank.vim'
+
+[[plugins]]
+repo = 'jacoborus/tender.vim'
+
