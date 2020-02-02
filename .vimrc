@@ -52,7 +52,7 @@ colorscheme tender
 augroup fix_tender
     autocmd!
     autocmd ColorScheme tender set cursorline
-    autocmd ColorScheme tender highlight CursorLine guibg=#303030 gui=NONE
+    autocmd ColorScheme tender highlight CursorLine guibg=#484848 gui=NONE
     autocmd ColorScheme tender highlight! link Search PmenuSel
     autocmd ColorScheme tender set fillchars=vert:┃,fold:-
     autocmd ColorScheme tender highlight VertSplit guifg=#999999
