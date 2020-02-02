@@ -255,25 +255,43 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = ['GTAGS', 'compile_commands.json', '.git']
 let g:ctrlp_show_hidden = 1
 "let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-let g:ctrlp_lazy_update = 1
 let g:ctrlp_max_height = 30
 let g:ctrlp_use_caching = 1
 let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
-let g:ctrlp_custom_ignore = {
-  \ 'func': 'CtrlPIgnoreFilter',
-  \ }
+let g:ctrlp_key_loop = 1
+let g:ctrlp_user_command = 'find -type d
+    \ -name ".git" -prune -o
+    \ -name ".svn" -prune -o
+    \ -name ".cache" -prune -o
+    \ -name ".dropbox" -prune -o
+    \ -name ".conda" -prune -o
+    \ -name ".eclipse" -prune -o
+    \ -name ".clangd" -prune -o
+    \ -name ".ccls-cache" -prune -o
+    \ -name ".clang-tidy" -prune -o
+    \ -type f
+    \ -not -name "*.o"
+    \ -not -name "*.a"
+    \ -not -name "*.d"
+    \ -not -name GPATH
+    \ -not -name GRTAGS
+    \ -not -name GTAGS
+    \ -print'
 
-function! CtrlPIgnoreFilter(item, type) abort
-    let l:cnv_item = tr(a:item, "\\", "/")
-    let l:pattern = ['\.git/', '\.svn/', '/\.cache/', '/\.dropbox/', '/\.conda/', '/\.eclipse/', '\.o$', '\.a$', 'GPATH', 'GRTAGS', 'GTAGS']
-    for p in l:pattern
-        if match(l:cnv_item, p) >= 0
-            "echo 'skip = ' l:cnv_item
-            return 1
-        endif
-    endfor
-    return 0
-endfunction
+" let g:ctrlp_custom_ignore = {
+"   \ 'func': 'CtrlPIgnoreFilter',
+"   \ }
+" function! CtrlPIgnoreFilter(item, type) abort
+"     let l:cnv_item = tr(a:item, "\\", "/")
+"     let l:pattern = ['\.git/', '\.svn/', '/\.cache/', '/\.dropbox/', '/\.conda/', '/\.eclipse/', '\.o$', '\.a$', 'GPATH', 'GRTAGS', 'GTAGS']
+"     for p in l:pattern
+"         if match(l:cnv_item, p) >= 0
+"             "echo 'skip = ' l:cnv_item
+"             return 1
+"         endif
+"     endfor
+"     return 0
+" endfunction
 
 " previewウインドウをひとまず無効化
 set completeopt=menuone
