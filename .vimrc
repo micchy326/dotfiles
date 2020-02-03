@@ -63,6 +63,7 @@ augroup fix_tender
     autocmd ColorScheme tender highlight Visual guibg=#6a6a6a
     autocmd ColorScheme tender highlight Pmenu guifg=#282828 guibg=#73cef4
     autocmd ColorScheme tender highlight PopupWindow guifg=#ffffff guibg=#232b4c
+    autocmd ColorScheme tender highlight SpecialKey guifg=#707070
 augroup END
 
 augroup fix_koehler
@@ -166,7 +167,7 @@ set wildmode=list,longest
 "空白文字を表示
 "http://4geek.net/set-gvims-vimrc-on-windows/
 set list "タブ、行末等の不可視文字を表示する
-set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:%
+set listchars=tab:»\ ┃,trail:-,extends:>,precedes:<,nbsp:%
 
 "全角スペースをハイライト
 "https://shobon.hatenablog.com/entry/2014/06/24/221750
