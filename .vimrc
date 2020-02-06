@@ -61,9 +61,16 @@ augroup fix_tender
     autocmd ColorScheme tender highlight LineNr guifg=#999999
     autocmd ColorScheme tender highlight SignColumn guifg=#000000 guibg=#3c3c3c
     autocmd ColorScheme tender highlight Visual guibg=#6a6a6a
-    autocmd ColorScheme tender highlight Pmenu guifg=#282828 guibg=#73cef4
+    autocmd ColorScheme tender highlight! link Pmenu DiffChange
+    autocmd ColorScheme tender highlight! link PmenuSel DiffDelete
     autocmd ColorScheme tender highlight PopupWindow guifg=#ffffff guibg=#232b4c
     autocmd ColorScheme tender highlight SpecialKey guifg=#707070
+    autocmd ColorScheme tender highlight ZenkakuSpace gui=reverse guibg=#666666
+    autocmd ColorScheme tender call matchadd("ZenkakuSpace", "　")
+    autocmd ColorScheme tender highlight Tab gui=reverse guifg=#555555 guibg=#333333
+    autocmd ColorScheme tender call matchadd("Tab", "	")
+    autocmd ColorScheme tender highlight Trail gui=reverse guibg=#555555
+    autocmd ColorScheme tender call matchadd("Trail", ' \+$')
 augroup END
 
 augroup fix_koehler
@@ -82,6 +89,7 @@ augroup fix_koehler
     autocmd ColorScheme koehler highlight SpecialKey guibg=NONE guifg=Gray40
     autocmd ColorScheme koehler highlight lspReference ctermfg=Black guifg=Black ctermbg=lightgray guibg=#dddddd
 augroup END
+
 syntax on
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
@@ -167,22 +175,8 @@ set wildmode=list,longest
 "空白文字を表示
 "http://4geek.net/set-gvims-vimrc-on-windows/
 set list "タブ、行末等の不可視文字を表示する
-set listchars=tab:»\ ┃,trail:-,extends:>,precedes:<,nbsp:%
+set listchars=tab:»\ ┃,extends:>,precedes:<,nbsp:%
 
-"全角スペースをハイライト
-"https://shobon.hatenablog.com/entry/2014/06/24/221750
-function! ZenkakuSpace()
-    highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
-endfunction
-
-if has('syntax')
-    augroup ZenkakuSpace
-        autocmd!
-        autocmd ColorScheme       * call ZenkakuSpace()
-        autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
-    augroup END
-    call ZenkakuSpace()
-endif
 
 
 "インサートモードからノーマルモード切り替え時にIMEを無効化
