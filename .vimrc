@@ -65,7 +65,7 @@ augroup fix_tender
     autocmd ColorScheme tender highlight! link PmenuSel DiffDelete
     autocmd ColorScheme tender highlight PopupWindow guifg=#ffffff guibg=#232b4c
     autocmd ColorScheme tender highlight SpecialKey guifg=#707070
-    autocmd ColorScheme tender highlight ZenkakuSpace gui=reverse guibg=#666666
+    autocmd ColorScheme tender highlight ZenkakuSpace gui=reverse guibg=#888888
     autocmd ColorScheme tender call matchadd("ZenkakuSpace", "　")
     autocmd ColorScheme tender highlight Tab gui=reverse guifg=#555555 guibg=#333333
     autocmd ColorScheme tender call matchadd("Tab", "	")
@@ -175,7 +175,7 @@ set wildmode=list,longest
 "空白文字を表示
 "http://4geek.net/set-gvims-vimrc-on-windows/
 set list "タブ、行末等の不可視文字を表示する
-set listchars=tab:»\ ┃,extends:>,precedes:<,nbsp:%
+set listchars=tab:»\ ,extends:>,precedes:<,nbsp:%
 
 
 
