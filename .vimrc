@@ -392,6 +392,11 @@ function! AirlineLspSetting()
     let g:airline_section_error = '✗ %{lsp#get_buffer_diagnostics_counts()["error"]}%{lsp#get_buffer_first_error_line()? "-".lsp#get_buffer_first_error_line():""}'
 endfunction
 
+let g:lsp_settings = {
+\  'clangd': {
+\    'disabled': v:true,
+\   }
+\}
 let g:use_ccls = v:true
 if g:use_ccls
     if executable('ccls')
