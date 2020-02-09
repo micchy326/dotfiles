@@ -412,18 +412,6 @@ else
             \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
             \ 'whitelist': ['c', 'cpp'],
             \ })
-        function! HandleClangdSwitchSourceHeader(data) abort
-            let l:file = a:data['response']['result']
-            let l:file = substitute(l:file, "file://", "", "")
-            if l:file != v:null
-                execute 'edit ' . l:file
-            else
-                echo 'switch file not found'
-            endif
-        endfunction
-        function! LspClangdSwitchSourceHeader() abort
-            call lsp#send_request('clangd', { 'method': 'textDocument/switchSourceHeader', 'params':{'uri': 'file://' .expand("%:p")}, 'on_notification': function('HandleClangdSwitchSourceHeader')})
-        endfunction
     endif
 endif
 
@@ -433,7 +421,7 @@ augroup cproject
     autocmd FileType c setlocal omnifunc=lsp#complete
     autocmd FileType c setlocal cindent
     autocmd FileType c call AirlineLspSetting()
-    nnoremap <silent> <Space>s :call LspClangdSwitchSourceHeader()<CR>
+    autocmd FileType c nmap <Space>s <plug>(lsp-clangd-switch)
 augroup END
 
 if executable('typescript-language-server')

@@ -54,6 +54,7 @@ repo = 'prabirshrestha/async.vim'
 
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
+merged = 0
 
 [[plugins]]
 repo = 'm-pilia/vim-ccls'
@@ -78,4 +79,8 @@ repo = 'greymd/oscyank.vim'
 
 [[plugins]]
 repo = 'jacoborus/tender.vim'
+
+[[plugins]]
+repo = 'micchy326/vim-lsp-clangd-switch'
+merged = 0
 
