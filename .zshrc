@@ -101,6 +101,7 @@ stty -ixon -ixoff
 export GTAGSCONF=/usr/local/share/gtags/gtags.conf
 export GTAGSLABEL=pygments
 
+export PATH="$HOME/.cargo/bin/:$HOME/.go/bin/:/usr/local/go/bin:$PATH"
 export PATH="$HOME/.cargo/bin/:$HOME/.go/bin/:$PATH"
 export GOPATH=$HOME/.go
 export GOBIN=$GOPATH/bin
