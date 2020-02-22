@@ -3,7 +3,7 @@
 cd ${1}
 git_status=("${(f)$(git status --porcelain --branch 2> /dev/null)}")
 if [[ $? -ne 0 ]]; then
-    echo -n "Not a git repository ${1}"
+    echo -n "${1}"
     exit 0
 fi
 
