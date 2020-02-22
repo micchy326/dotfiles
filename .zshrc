@@ -6,7 +6,7 @@ setopt hist_ignore_dups
 setopt share_history
 
 setopt auto_cd
-function chpwd() { ls }
+function chpwd() { ls --color=tty }
 
 
 source ~/.powerlevel10k/powerlevel10k.zsh-theme
