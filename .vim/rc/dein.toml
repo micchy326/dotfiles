@@ -29,7 +29,8 @@ repo = 'ctrlpvim/ctrlp.vim'
 repo = 't9md/vim-quickhl'
 
 [[plugins]]
-repo = 'gorodinskiy/vim-coloresque'
+repo = 'micchy326/vim-coloresque'
+merged = 0
 
 [[plugins]]
 repo = 'MattesGroeger/vim-bookmarks'
