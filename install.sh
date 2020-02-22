@@ -10,6 +10,7 @@ mkdir -p ~/.config/Code/User/
 ln -sf ~/dotfiles/settings.json ~/.config/Code/User/settings.json
 ln -sf ~/dotfiles/keybindings.json ~/.config/Code/User/keybindings.json
 ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
+ln -sf ~/Dropbox/dotfiles/.zsh_history ~/.zsh_history
 if [[ ! -d ~/.dircolors-solarized ]];then
     git clone --depth=1 https://github.com/micchy326/dircolors-solarized ~/.dircolors-solarized
 fi
