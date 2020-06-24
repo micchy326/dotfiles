@@ -32,7 +32,9 @@ if dein#load_state(s:dein_dir)
 
   " 設定終了
   call dein#end()
-  call dein#save_state()
+  if !g:dein#_is_sudo
+    call dein#save_state()
+  endif
 endif
 
 " もし、未インストールものものがあったらインストール
