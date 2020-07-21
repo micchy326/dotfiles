@@ -4,6 +4,7 @@ ln -sf ~/dotfiles/.screenrc ~/.screenrc
 ln -sf ~/dotfiles/.vimrc ~/.vimrc
 ln -sf ~/dotfiles/.vim ~/.vim
 mkdir -p ~/.vim/backup
+mkdir -p ~/.vimundo
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.zshenv ~/.zshenv
 mkdir -p ~/.config/Code/User/

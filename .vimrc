@@ -141,6 +141,10 @@ set browsedir=buffer
 set directory=$HOME/dotfiles/.vim/backup
 set history=10000
 
+" persistent undo
+set undofile
+set undodir=~/.vimundo
+
 "Search
 set incsearch
 set hlsearch
