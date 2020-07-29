@@ -8,6 +8,4 @@ path=(
 
 export GOPATH=$HOME/.go
 export GOBIN=$GOPATH/bin
-export GTAGSCONF=/usr/local/share/gtags/gtags.conf
-export GTAGSLABEL=pygments
 export EDITOR='vim'
