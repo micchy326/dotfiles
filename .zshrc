@@ -122,8 +122,7 @@ zsh_auto_log() {
         fi
     done
     [ ! -d ${LOGDIR} ] && mkdir -p ${LOGDIR}
-    tmux set-option default-terminal "screen" \; \
-    pipe-pane "cat >> ${LOGDIR}/${LOGFILE}" \; \
+    tmux pipe-pane "cat >> ${LOGDIR}/${LOGFILE}" \; \
     display-message "💾Started logging to ${LOGDIR}/${LOGFILE}"
 }
 if [[ -n ${TMUX} ]]; then
