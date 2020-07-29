@@ -85,9 +85,11 @@ REPORTTIME=3
 unsetopt correctall
 
 # true colorを有効化
+# ここでTERMを設定するべきではないので以下は削除
+# .tmux.confで設定する
 # eval `tset -s xterm-24bits`
 # evalを実行するととても遅いので、結果を直接設定する
-TERM=xterm-24bits;
+# TERM=xterm-24bits;
 
 # LS_COLORSの設定
 autoload -U colors
