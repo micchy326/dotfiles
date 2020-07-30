@@ -45,9 +45,18 @@ endif
 " .mdファイルをmarkdownに変更
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 
+" true color用設定
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+" bracketed paste mode設定
+" TERMがxterm*でないとvimが自動的にbracketed paste modeを有効化できない
+" しかし、tmux内ではTERM=tmux*なのでこの設定が必要
+let &t_BE = "\e[?2004h"
+let &t_BD = "\e[?2004l"
+exec "set t_PS=\e[200~"
+exec "set t_PE=\e[201~"
 
 filetype plugin on
 
