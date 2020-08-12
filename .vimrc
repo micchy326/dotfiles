@@ -1,4 +1,9 @@
 scriptencoding utf-8
+
+" 初期設定
+let g:use_coc = v:true
+let g:use_ccls = v:true
+
 " プラグイン読み込みの前にpython3の使用を宣言しておく
 " プラグインを先に読み込むとpython2が使用されてしまう
 call has('python3')
@@ -30,6 +35,13 @@ if dein#load_state(s:dein_dir)
   call dein#load_toml(s:toml,      {'lazy': 0})
   call dein#load_toml(s:lazy_toml, {'lazy': 1})
 
+  if g:use_coc
+    call dein#add('neoclide/coc.nvim_release', { 'merged': 0 })
+  else
+    call dein#add('prabirshrestha/vim-lsp', { 'merged': 0 })
+    call dein#add('micchy326/vim-lsp-clangd-switch')
+  endif
+
   " 設定終了
   call dein#end()
   if !g:dein#_is_sudo
@@ -60,6 +72,8 @@ exec "set t_PE=\e[201~"
 
 filetype plugin on
 
+let mapleader = ','
+
 set background=dark
 colorscheme tender
 augroup fix_tender
@@ -84,6 +98,7 @@ augroup fix_tender
     autocmd ColorScheme tender call matchadd("Tab", "	")
     autocmd ColorScheme tender highlight Trail gui=reverse guibg=#555555
     autocmd ColorScheme tender call matchadd("Trail", ' \+$')
+    autocmd ColorScheme tender highlight CocHighlightText guibg=#666666
 augroup END
 
 augroup fix_koehler
@@ -386,123 +401,273 @@ let g:airline_symbols = {}
 endif
 let g:airline_symbols.dirty='⚒'
 
-" vim-lsp
-"let g:lsp_log_verbose = 1
-"let g:lsp_log_file = expand('~/.vim/vim-lsp.log')
-"let g:asyncomplete_log_file = expand('~/.vim/asyncomplete.log')
+if g:use_coc
+    " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+    " delays and poor user experience.
+    set updatetime=300
 
-let g:lsp_diagnostics_echo_cursor = 1
-nnoremap <silent> <Space>h :LspHover<CR>
-nnoremap <silent> <Space><Space> :LspDefinition<CR>
-nnoremap <silent> <Space>r :LspReference<CR>
-nnoremap <silent> <Space><F2> :LspRename<CR>
-nnoremap <silent> <Space>p :LspPeekDefinition<CR>
-nnoremap <silent> <Space>w :LspWorkspaceSymbol<CR>
-nnoremap <silent> <A-j> :LspNextReference<CR>
-nnoremap <silent> <A-k> :LspPreviousReference<CR>
-nnoremap <silent> <Space>f ggVG:'<,'>LspDocumentRangeFormat<CR>
-vnoremap <silent> <Space>f :'<,'>LspDocumentRangeFormat<CR>
-let g:lsp_highlight_references_enabled = 1
+    " Don't pass messages to |ins-completion-menu|.
+    set shortmess+=c
 
-function! AirlineLspSetting()
-    let g:airline_section_warning = '⚠ %{lsp#get_buffer_diagnostics_counts()["warning"]}'
-    let g:airline_section_error = '✗ %{lsp#get_buffer_diagnostics_counts()["error"]}%{lsp#get_buffer_first_error_line()? "-".lsp#get_buffer_first_error_line():""}'
-endfunction
-
-let g:lsp_settings = {
-\  'clangd': {
-\    'disabled': v:true,
-\   }
-\}
-let g:use_ccls = v:true
-if g:use_ccls
-    if executable('ccls')
-       autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'ccls',
-          \ 'cmd': {server_info->['ccls']},
-          \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-          \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }},
-          \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-          \ })
+    " Always show the signcolumn, otherwise it would shift the text each time
+    " diagnostics appear/become resolved.
+    if has("patch-8.1.1564")
+      " Recently vim can merge signcolumn and number column into one
+      set signcolumn=number
+    else
+      set signcolumn=yes
     endif
-    let g:ccls_levels = 2
+
+    " Use tab for trigger completion with characters ahead and navigate.
+    " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+    " other plugin before putting this into your config.
+    inoremap <silent><expr> <TAB>
+          \ pumvisible() ? "\<C-n>" :
+          \ <SID>check_back_space() ? "\<TAB>" :
+          \ coc#refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+    function! s:check_back_space() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+    " position. Coc only does snippet and additional edit on confirm.
+    " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+    if exists('*complete_info')
+      inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+    else
+      inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    endif
+
+    " Use `[g` and `]g` to navigate diagnostics
+    " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+    nmap <silent> [g <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+    " GoTo code navigation.
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+
+    " Use K to show documentation in preview window.
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    function! s:show_documentation()
+      if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+      else
+        call CocAction('doHover')
+      endif
+    endfunction
+
+    " Highlight the symbol and its references when holding the cursor.
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+
+    " Symbol renaming.
+    nmap <leader>rn <Plug>(coc-rename)
+
+    " Formatting selected code.
+    xmap <leader>f  <Plug>(coc-format-selected)
+    nmap <leader>f  <Plug>(coc-format-selected)
+
+    augroup mygroup
+      autocmd!
+      " Setup formatexpr specified filetype(s).
+      autocmd FileType typescript,json,c,cpp,rust setl formatexpr=CocAction('formatSelected')
+      " Update signature help on jump placeholder.
+      autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    augroup end
+
+    " Applying codeAction to the selected region.
+    " Example: `<leader>aap` for current paragraph
+    xmap <leader>a  <Plug>(coc-codeaction-selected)
+    nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+    " Remap keys for applying codeAction to the current buffer.
+    nmap <leader>ac  <Plug>(coc-codeaction)
+    " Apply AutoFix to problem on the current line.
+    nmap <leader>qf  <Plug>(coc-fix-current)
+
+    " Map function and class text objects
+    " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+    xmap if <Plug>(coc-funcobj-i)
+    omap if <Plug>(coc-funcobj-i)
+    xmap af <Plug>(coc-funcobj-a)
+    omap af <Plug>(coc-funcobj-a)
+    xmap ic <Plug>(coc-classobj-i)
+    omap ic <Plug>(coc-classobj-i)
+    xmap ac <Plug>(coc-classobj-a)
+    omap ac <Plug>(coc-classobj-a)
+
+    " Use CTRL-S for selections ranges.
+    " Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
+    nmap <silent> <C-s> <Plug>(coc-range-select)
+    xmap <silent> <C-s> <Plug>(coc-range-select)
+
+    " Add `:Format` command to format current buffer.
+    command! -nargs=0 Format :call CocAction('format')
+
+    " Add `:Fold` command to fold current buffer.
+    command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+    " Add `:OR` command for organize imports of the current buffer.
+    command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+    " Mappings for CoCList
+    " Show all diagnostics.
+    nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+    " Manage extensions.
+    nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+    " Show commands.
+    nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+    " Find symbol of current document.
+    nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+    " Search workspace symbols.
+    nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+    " Do default action for next item.
+    nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+    " Do default action for previous item.
+    nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+    " Resume latest coc list.
+    nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+    nnoremap <silent> <Space>h :call CocAction('doHover')<CR>
+    nmap <silent> <Space><Space> <Plug>(coc-definition)
+    nmap <silent> <Space>r <Plug>(coc-references)
+    nmap <Space><F2> <Plug>(coc-rename)
+    nnoremap <silent> <Space>p :LspPeekDefinition<CR>
+    nnoremap <silent><nowait> <Space>w  :<C-u>CocList -I symbols<cr>
+    nnoremap <silent><nowait> <A-j> :CocCommand document.jumpToNextSymbol<CR>
+    nnoremap <silent><nowait> <A-k> :CocCommand document.jumpToPrevSymbol<CR>
+    nnoremap <silent> <Space>f :call CocAction('format')<CR>
 else
-    if executable('clangd')
+    " vim-lsp
+    "let g:lsp_log_verbose = 1
+    "let g:lsp_log_file = expand('~/.vim/vim-lsp.log')
+    "let g:asyncomplete_log_file = expand('~/.vim/asyncomplete.log')
+
+    let g:lsp_diagnostics_echo_cursor = 1
+    nnoremap <silent> <Space>h :LspHover<CR>
+    nnoremap <silent> <Space><Space> :LspDefinition<CR>
+    nnoremap <silent> <Space>r :LspReference<CR>
+    nnoremap <silent> <Space><F2> :LspRename<CR>
+    nnoremap <silent> <Space>p :LspPeekDefinition<CR>
+    nnoremap <silent> <Space>w :LspWorkspaceSymbol<CR>
+    nnoremap <silent> <A-j> :LspNextReference<CR>
+    nnoremap <silent> <A-k> :LspPreviousReference<CR>
+    nnoremap <silent> <Space>f ggVG:'<,'>LspDocumentRangeFormat<CR>
+    vnoremap <silent> <Space>f :'<,'>LspDocumentRangeFormat<CR>
+    let g:lsp_highlight_references_enabled = 1
+
+    function! AirlineLspSetting()
+        let g:airline_section_warning = '⚠ %{lsp#get_buffer_diagnostics_counts()["warning"]}'
+        let g:airline_section_error = '✗ %{lsp#get_buffer_diagnostics_counts()["error"]}%{lsp#get_buffer_first_error_line()? "-".lsp#get_buffer_first_error_line():""}'
+    endfunction
+
+    let g:lsp_settings = {
+    \  'clangd': {
+    \    'disabled': v:true,
+    \   }
+    \}
+    if g:use_ccls
+        if executable('ccls')
+           autocmd User lsp_setup call lsp#register_server({
+              \ 'name': 'ccls',
+              \ 'cmd': {server_info->['ccls']},
+              \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+              \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }},
+              \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+              \ })
+        endif
+        let g:ccls_levels = 2
+    else
+        if executable('clangd')
+            autocmd User lsp_setup call lsp#register_server({
+                \ 'name': 'clangd',
+                \ 'cmd': {server_info->['clangd', '--header-insertion-decorators']},
+                \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+                \ 'whitelist': ['c', 'cpp'],
+                \ })
+        endif
+    endif
+
+    augroup cproject
+        autocmd!
+        autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+        autocmd FileType c setlocal omnifunc=lsp#complete
+        autocmd FileType c setlocal cindent
+        autocmd FileType c call AirlineLspSetting()
+        autocmd FileType c nmap <Space>s <plug>(lsp-clangd-switch)
+    augroup END
+
+    if executable('typescript-language-server')
         autocmd User lsp_setup call lsp#register_server({
-            \ 'name': 'clangd',
-            \ 'cmd': {server_info->['clangd', '--header-insertion-decorators']},
-            \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-            \ 'whitelist': ['c', 'cpp'],
+            \ 'name': 'typescript-language-server',
+            \ 'cmd': {server_info->['typescript-language-server', '--stdio']},
+            \ 'whitelist': ['javascript', 'typescript'],
+            \ })
+        autocmd FileType typescript imap <expr> . ".\<C-X>\<C-O>"
+        autocmd FileType typescript imap <expr> : ":\<C-X>\<C-O>"
+    endif
+    augroup typescriptproject
+        autocmd!
+        autocmd FileType typescript setlocal omnifunc=lsp#complete
+        autocmd FileType typescript setlocal iskeyword=@,48-57,_,192-255
+        autocmd FileType typescript call AirlineLspSetting()
+    augroup END
+
+    if executable('rls')
+        autocmd User lsp_setup call lsp#register_server({
+            \ 'name': 'rls',
+            \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+            \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+            \ 'whitelist': ['rust'],
             \ })
     endif
-endif
+    augroup rustproject
+        autocmd!
+        autocmd FileType rust setlocal omnifunc=lsp#complete
+        autocmd FileType rust call AirlineLspSetting()
+    augroup END
 
-augroup cproject
-    autocmd!
-    autocmd BufRead,BufNewFile *.h,*.c set filetype=c
-    autocmd FileType c setlocal omnifunc=lsp#complete
-    autocmd FileType c setlocal cindent
-    autocmd FileType c call AirlineLspSetting()
-    autocmd FileType c nmap <Space>s <plug>(lsp-clangd-switch)
-augroup END
-
-if executable('typescript-language-server')
-    autocmd User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info->['typescript-language-server', '--stdio']},
-        \ 'whitelist': ['javascript', 'typescript'],
+    if executable('vscode-html-languageserver')
+      au User lsp_setup call lsp#register_server({
+        \ 'name': 'html-languageserver',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'vscode-html-languageserver --stdio']},
+        \ 'initialization_options': {"provideFormatter": v:true, "embeddedLanguages": ["html"]},
+        \ 'whitelist': ['html'],
         \ })
-    autocmd FileType typescript imap <expr> . ".\<C-X>\<C-O>"
-    autocmd FileType typescript imap <expr> : ":\<C-X>\<C-O>"
-endif
-augroup typescriptproject
-    autocmd!
-    autocmd FileType typescript setlocal omnifunc=lsp#complete
-    autocmd FileType typescript setlocal iskeyword=@,48-57,_,192-255
-    autocmd FileType typescript call AirlineLspSetting()
-augroup END
+    endif
+    augroup htmlproject
+        autocmd!
+        autocmd FileType html setlocal omnifunc=lsp#complete
+        autocmd FileType html call AirlineLspSetting()
+    augroup END
 
-if executable('rls')
-    autocmd User lsp_setup call lsp#register_server({
-        \ 'name': 'rls',
-        \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
-        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
-        \ 'whitelist': ['rust'],
+    if executable('vscode-json-languageserver')
+      au User lsp_setup call lsp#register_server({
+        \ 'name': 'json-languageserver',
+        \ 'initialization_options': {"provideFormatter": v:true},
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'vscode-json-languageserver --stdio']},
+        \ 'whitelist': ['json'],
         \ })
-endif
-augroup rustproject
-    autocmd!
-    autocmd FileType rust setlocal omnifunc=lsp#complete
-    autocmd FileType rust call AirlineLspSetting()
-augroup END
+    endif
+    augroup jsonproject
+        autocmd!
+        autocmd FileType json setlocal omnifunc=lsp#complete
+        autocmd FileType json call AirlineLspSetting()
+    augroup END
 
-if executable('vscode-html-languageserver')
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'html-languageserver',
-    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'vscode-html-languageserver --stdio']},
-    \ 'initialization_options': {"provideFormatter": v:true, "embeddedLanguages": ["html"]},
-    \ 'whitelist': ['html'],
-    \ })
+    augroup lsp_float_colours
+        autocmd!
+        autocmd User lsp_float_opened
+            \ call win_execute(lsp#ui#vim#output#getpreviewwinid(),
+            \		       'setlocal wincolor=PopupWindow')
+    augroup end
 endif
-augroup htmlproject
-    autocmd!
-    autocmd FileType html setlocal omnifunc=lsp#complete
-    autocmd FileType html call AirlineLspSetting()
-augroup END
-
-if executable('vscode-json-languageserver')
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'json-languageserver',
-    \ 'initialization_options': {"provideFormatter": v:true},
-    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'vscode-json-languageserver --stdio']},
-    \ 'whitelist': ['json'],
-    \ })
-endif
-augroup jsonproject
-    autocmd!
-    autocmd FileType json setlocal omnifunc=lsp#complete
-    autocmd FileType json call AirlineLspSetting()
-augroup END
 
 " mapの一覧をファイル出力
 function! MapList()

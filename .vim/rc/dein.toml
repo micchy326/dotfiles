@@ -11,9 +11,6 @@ repo = 'micchy326/gtags-cscope.vim'
 repo = 'will133/vim-dirdiff'
 
 [[plugins]]
-repo = 'Lokaltog/vim-easymotion'
-
-[[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
@@ -51,13 +48,6 @@ repo = 'Xuyuanp/nerdtree-git-plugin'
 repo = 'osyo-manga/vim-anzu'
 
 [[plugins]]
-repo = 'prabirshrestha/async.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-merged = 0
-
-[[plugins]]
 repo = 'm-pilia/vim-ccls'
 
 [[plugins]]
@@ -80,8 +70,4 @@ repo = 'greymd/oscyank.vim'
 
 [[plugins]]
 repo = 'jacoborus/tender.vim'
-
-[[plugins]]
-repo = 'micchy326/vim-lsp-clangd-switch'
-merged = 0
 
