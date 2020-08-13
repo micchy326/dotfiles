@@ -83,7 +83,6 @@ augroup fix_tender
     autocmd ColorScheme tender highlight! link Search WildMenu
     autocmd ColorScheme tender set fillchars=vert:┃,fold:-
     autocmd ColorScheme tender highlight VertSplit guifg=#999999
-    autocmd ColorScheme tender highlight lspReference guifg=Black guibg=#aaaaaa
     autocmd ColorScheme tender highlight Comment guifg=#aaaaaa
     autocmd ColorScheme tender highlight LineNr guifg=#999999
     autocmd ColorScheme tender highlight SignColumn guifg=#000000 guibg=#3c3c3c
@@ -98,6 +97,7 @@ augroup fix_tender
     autocmd ColorScheme tender call matchadd("Tab", "	")
     autocmd ColorScheme tender highlight Trail gui=reverse guibg=#555555
     autocmd ColorScheme tender call matchadd("Trail", ' \+$')
+    autocmd ColorScheme tender highlight lspReference guifg=Black guibg=#cccccc
     autocmd ColorScheme tender highlight CocHighlightText guibg=#666666
 augroup END
 
@@ -147,15 +147,6 @@ set tabstop=4
 set autoindent
 set expandtab
 set shiftwidth=4
-
-
-" vim-easymotion の設定 -------------------------
-" デフォルトのキーマッピングを無効に
-"  let g:EasyMotion_do_mapping = 0
-" f + 2文字 で画面全体を検索してジャンプ
-"  nmap f <plug>(easymotion-overwin-f2)
-" 検索時、大文字小文字を区別しない
-"  let g:EasyMotion_smartcase = 1
 
 "File
 set hidden
