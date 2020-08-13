@@ -363,6 +363,9 @@ let g:quickhl_manual_colors = [
 
 " vimdiffのアルゴリズムを賢く (vim vim 8.1.0360-)
 set diffopt=internal,filler,algorithm:histogram,indent-heuristic
+" 空白行を無視する/しない
+nmap <leader>w :set diffopt+=iwhiteall<cr>
+nmap <leader>W :set diffopt-=iwhiteall<cr>
 
 " ctrlp + memolist
 nmap ,mf :exe "CtrlP" g:memolist_path<cr><f5>
