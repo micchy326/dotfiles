@@ -123,6 +123,9 @@ syntax on
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
+" ウインドウを閉じずにバッファのみ閉じる
+command! Bd :bp | :sp | :bn | :bd
+
 " enable Alt + char mappings
 if !has('gui_running')
   map n <A-n>
