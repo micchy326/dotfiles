@@ -739,10 +739,4 @@ augroup manpage
     autocmd FileType man set nolist
 augroup END
 
-augroup lsp_float_colours
-    autocmd!
-    autocmd User lsp_float_opened
-        \ call win_execute(lsp#ui#vim#output#getpreviewwinid(),
-        \		       'setlocal wincolor=PopupWindow')
-augroup end
 
