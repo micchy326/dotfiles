@@ -22,3 +22,19 @@ fi
 pushd ~/.dircolors-solarized
 git pull > /dev/null
 popd
+
+# download Cica font
+mkdir -p /tmp/Cica
+pushd /tmp/Cica
+curl -s https://api.github.com/repos/miiton/Cica/releases/latest \
+    | grep browser_download_url \
+    | grep with_emoji.zip \
+    | cut -d '"' -f 4 \
+    | wget -qi - 
+unzip Cica_v*_with_emoji.zip
+mkdir -p ~/.font
+mv Cica-Bold.ttf Cica-BoldItalic.ttf Cica-Regular.ttf Cica-RegularItalic.ttf ~/.font
+fc-cache -fv
+cd /tmp
+rm -rf Cica
+popd
