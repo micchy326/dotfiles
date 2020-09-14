@@ -1,0 +1,6 @@
+{
+"coc.preferences.enableFloatHighlight": false,
+"coc.preferences.currentFunctionSymbolAutoUpdate": true,
+"python.pythonPath": "python3"
+}
+
