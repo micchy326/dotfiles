@@ -39,12 +39,6 @@ repo = 'leafgarland/typescript-vim'
 repo = 'glidenote/memolist.vim'
 
 [[plugins]]
-repo = 'scrooloose/nerdtree'
-
-[[plugins]]
-repo = 'Xuyuanp/nerdtree-git-plugin'
-
-[[plugins]]
 repo = 'osyo-manga/vim-anzu'
 
 [[plugins]]
@@ -70,4 +64,17 @@ repo = 'greymd/oscyank.vim'
 
 [[plugins]]
 repo = 'jacoborus/tender.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+
+#[[plugins]]
+#repo = 'lambdalisue/fern-git-status.vim'
+#merged = 0
+ 
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+
+[[plugins]]
+repo = 'lambdalisue/nerdfont.vim'
 

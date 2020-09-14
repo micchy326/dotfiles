@@ -381,7 +381,7 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 " statusline
 set statusline=%{anzu#search_status()}
 
-let g:airline_extensions=[ "ctrlp", "keymap", "netrw", "po", "quickfix", "tabline", "term", "whitespace", "wordcount", "anzu", "branch"]
+let g:airline_extensions=[ "ctrlp", "keymap", "po", "quickfix", "tabline", "term", "whitespace", "wordcount", "anzu", "branch"]
 
 let g:airline#extensions#languageclient#enabled = 1
 let airline#extensions#languageclient#error_symbol = 'E:'
@@ -391,7 +391,7 @@ let airline#extensions#languageclient#open_lnum_symbol = '(L'
 let airline#extensions#languageclient#close_lnum_symbol = ')'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = 'vcs empty'
-let g:airline#extensions#tabline#keymap_ignored_filetypes = ['vimfiler', 'nerdtree']
+let g:airline#extensions#tabline#keymap_ignored_filetypes = ['vimfiler']
 
 if !exists('g:airline_symbols')
 let g:airline_symbols = {}
@@ -676,10 +676,6 @@ endfunction
 " 検索ヒット数と今の位置を表示する
 set shortmess-=S
 
-" NERDTree
-nnoremap <silent> - :NERDTreeToggle<CR>
-let NERDTreeShowHidden=1
-
 " vim-ccls(yggdrasil)
 let g:yggdrasil_no_default_maps = 1
 autocmd FileType yggdrasil nmap <silent> <buffer> o <Plug>(yggdrasil-toggle-node)
@@ -742,4 +738,41 @@ augroup manpage
     autocmd FileType man set nolist
 augroup END
 
+" fern
+nnoremap <silent> <leader><leader> :Fern . -drawer -toggle -keep<cr>
 
+" Disable netrw
+let g:loaded_netrw             = 1
+let g:loaded_netrwPlugin       = 1
+let g:loaded_netrwSettings     = 1
+let g:loaded_netrwFileHandlers = 1
+
+augroup my-fern-hijack
+  autocmd!
+  autocmd BufEnter * ++nested call s:hijack_directory()
+augroup END
+
+function! s:hijack_directory() abort
+  let path = expand('%:p')
+  if !isdirectory(path)
+    return
+  endif
+  bwipeout %
+  execute printf('Fern %s', fnameescape(path))
+endfunction
+
+augroup fern-custom
+  autocmd! *
+  autocmd FileType fern call s:init_fern()
+augroup END
+
+function! s:init_fern() abort
+  nmap <buffer> k k<Plug>(fern-action-mark-toggle)
+  nmap <buffer> j <Plug>(fern-action-mark-toggle)j
+  " disable spelunker
+  let b:enable_spelunker_vim = 0
+endfunction
+
+let g:fern#renderer = "nerdfont"
+let g:fern#default_hidden = 1
+let g:fern_git_status#disable_ignored = 1
