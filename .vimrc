@@ -276,11 +276,13 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = ['GTAGS', 'compile_commands.json', '.git']
 let g:ctrlp_show_hidden = 1
 "let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-let g:ctrlp_max_height = 30
+let g:ctrlp_max_height = 40
 let g:ctrlp_use_caching = 1
 let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_key_loop = 1
-let g:ctrlp_user_command = 'find -type d
+let g:ctrlp_mruf_exclude = '\.git\|\.svn'
+let g:ctrlp_user_command_async = 1
+let g:ctrlp_user_command = 'find %s -type d
     \ -name ".git" -prune -o
     \ -name ".svn" -prune -o
     \ -name ".cache" -prune -o
