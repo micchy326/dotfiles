@@ -736,7 +736,10 @@ augroup manpage
 augroup END
 
 " fern
-nnoremap <silent> <leader><leader> :Fern . -drawer -toggle -keep<cr>
+"let g:fern#logfile = '~/fern.tsv'
+"let g:fern#loglevel = g:fern#DEBUG
+nnoremap <silent> <leader><leader> :Fern . -drawer -toggle -keep -reveal=%<cr>
+nnoremap <silent> <leader>. :Fern . -drawer -toggle -keep<cr>
 
 augroup fern-custom
   autocmd! *
@@ -744,8 +747,8 @@ augroup fern-custom
 augroup END
 
 function! s:init_fern() abort
-  nmap <buffer> k k<Plug>(fern-action-mark-toggle)
-  nmap <buffer> j <Plug>(fern-action-mark-toggle)j
+  nmap <buffer> k k<Plug>(fern-action-mark:toggle)
+  nmap <buffer> j <Plug>(fern-action-mark:toggle)j
   " disable spelunker
   let b:enable_spelunker_vim = 0
 endfunction
@@ -753,6 +756,8 @@ endfunction
 let g:fern#renderer = "nerdfont"
 let g:fern#default_hidden = 1
 let g:fern_git_status#disable_ignored = 1
+
+nmap <Space>g <Plug>(fern-action-grep)
 
 " vista
 let g:vista_default_executive = 'vim_lsp'
