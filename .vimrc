@@ -380,18 +380,11 @@ nmap g* g*<Plug>(anzu-update-search-status-with-echo)
 " clear status
 nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
-" statusline
-set statusline=%{anzu#search_status()}
-
-let g:airline_extensions=[ "ctrlp", "keymap", "po", "quickfix", "tabline", "term", "whitespace", "wordcount", "anzu", "branch"]
-
-let g:airline#extensions#languageclient#enabled = 1
 let airline#extensions#languageclient#error_symbol = 'E:'
 let airline#extensions#languageclient#warning_symbol = 'W:'
 let airline#extensions#languageclient#show_line_numbers = 1
 let airline#extensions#languageclient#open_lnum_symbol = '(L'
 let airline#extensions#languageclient#close_lnum_symbol = ')'
-let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = 'vcs empty'
 let g:airline#extensions#tabline#keymap_ignored_filetypes = ['vimfiler']
 
@@ -548,7 +541,7 @@ else
     "let g:lsp_log_file = expand('~/.vim/vim-lsp.log')
     "let g:asyncomplete_log_file = expand('~/.vim/asyncomplete.log')
 
-    let g:lsp_diagnostics_echo_cursor = 1
+    let g:lsp_diagnostics_float_cursor = 1
     nnoremap <silent> <Space>h :LspHover<CR>
     nnoremap <silent> <Space><Space> :LspDefinition<CR>
     nnoremap <silent> <Space>r :LspReference<CR>
@@ -778,3 +771,27 @@ endfunction
 let g:fern#renderer = "nerdfont"
 let g:fern#default_hidden = 1
 let g:fern_git_status#disable_ignored = 1
+
+" vista
+let g:vista_default_executive = 'vim_lsp'
+" vistaで関数名をairlineに表示する際の更新頻度を上げる
+set updatetime=300
+"let g:vista_log_file = '/tmp/vista.log'
+
+" 関数名をairlineに表示するために一度Vistaを有効化する
+" ctagsではこの動作は不要だったのでもしかしたらVistaのバグかもしれないが
+" そもそもvim-lspで関数名をairlineに表示する機能が現状だと未サポートなので
+" ひとまず回避しておく
+func EnableAirlineFunctionNameHandler(timer)
+  execute "Vista"
+  sleep 100m
+  execute "Vista!"
+  call timer_stop(a:timer)
+endfunc
+func EnableAirlineFunctionName()
+  let timer = timer_start(1000, 'EnableAirlineFunctionNameHandler')
+endfunc
+augroup enable_airline_function_name
+    autocmd!
+    autocmd FileType typescript,json,c,cpp,rust,vim call EnableAirlineFunctionName()
+augroup END
