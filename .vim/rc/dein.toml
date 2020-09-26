@@ -78,3 +78,5 @@ repo = 'lambdalisue/fern-renderer-nerdfont.vim'
 [[plugins]]
 repo = 'lambdalisue/nerdfont.vim'
 
+[[plugins]]
+repo = 'liuchengxu/vista.vim'
