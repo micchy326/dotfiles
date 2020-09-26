@@ -54,6 +54,8 @@ if dein#check_install()
   call dein#install()
 endif
 
+execute 'set runtimepath+=' . expand('~/.vim/')
+
 " .mdファイルをmarkdownに変更
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 
