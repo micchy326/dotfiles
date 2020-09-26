@@ -138,7 +138,7 @@ endif
 
 " gtags settings
 map <F2> :cclose<CR>
-map <F4> :copen<CR>
+map <F4> :botright copen<CR>
 map <C-h> :Gtags -f %<CR>
 map <F3> :GtagsCursor<CR>
 map <S-C-G> :Gtags -r <C-r><C-w><CR>
