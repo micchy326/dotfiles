@@ -736,26 +736,6 @@ augroup END
 " fern
 nnoremap <silent> <leader><leader> :Fern . -drawer -toggle -keep<cr>
 
-" Disable netrw
-let g:loaded_netrw             = 1
-let g:loaded_netrwPlugin       = 1
-let g:loaded_netrwSettings     = 1
-let g:loaded_netrwFileHandlers = 1
-
-augroup my-fern-hijack
-  autocmd!
-  autocmd BufEnter * ++nested call s:hijack_directory()
-augroup END
-
-function! s:hijack_directory() abort
-  let path = expand('%:p')
-  if !isdirectory(path)
-    return
-  endif
-  bwipeout %
-  execute printf('Fern %s', fnameescape(path))
-endfunction
-
 augroup fern-custom
   autocmd! *
   autocmd FileType fern call s:init_fern()

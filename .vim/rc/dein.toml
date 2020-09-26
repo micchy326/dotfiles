@@ -76,6 +76,9 @@ repo = 'lambdalisue/fern.vim'
 repo = 'lambdalisue/fern-renderer-nerdfont.vim'
 
 [[plugins]]
+repo = 'lambdalisue/fern-hijack.vim'
+
+[[plugins]]
 repo = 'lambdalisue/nerdfont.vim'
 
 [[plugins]]
