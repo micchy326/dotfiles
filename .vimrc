@@ -765,14 +765,9 @@ let g:vista_default_executive = 'vim_lsp'
 set updatetime=300
 "let g:vista_log_file = '/tmp/vista.log'
 
-" 関数名をairlineに表示するために一度Vistaを有効化する
-" ctagsではこの動作は不要だったのでもしかしたらVistaのバグかもしれないが
-" そもそもvim-lspで関数名をairlineに表示する機能が現状だと未サポートなので
-" ひとまず回避しておく
+" 関数名をairlineに表示するためのVista設定
 func EnableAirlineFunctionNameHandler(timer)
-  execute "Vista"
-  sleep 100m
-  execute "Vista!"
+  call vista#RunForNearestMethodOrFunction()
   call timer_stop(a:timer)
 endfunc
 func EnableAirlineFunctionName()
