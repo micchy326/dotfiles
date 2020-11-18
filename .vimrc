@@ -719,7 +719,8 @@ function! AirlineThemePatch(palette)
     endfor
 endfunction
 
-packadd termdebug
+packadd! termdebug
+packadd! matchit
 
 " Sourcetrailの設定
 let g:sourcetrail_autostart = 1
