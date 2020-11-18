@@ -334,6 +334,8 @@ nmap <Space>m <Plug>(quickhl-manual-this)
 xmap <Space>m <Plug>(quickhl-manual-this)
 nmap <F9>     <Plug>(quickhl-manual-toggle)
 xmap <F9>     <Plug>(quickhl-manual-toggle)
+nmap <End>    <Plug>(quickhl-manual-go-to-next)
+nmap <Home>   <Plug>(quickhl-manual-go-to-prev)
 
 nmap <Space>M <Plug>(quickhl-manual-reset)
 xmap <Space>M <Plug>(quickhl-manual-reset)
