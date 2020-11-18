@@ -72,7 +72,7 @@ let &t_BD = "\e[?2004l"
 exec "set t_PS=\e[200~"
 exec "set t_PE=\e[201~"
 
-filetype plugin on
+filetype plugin indent on
 
 let mapleader = ','
 
@@ -148,11 +148,6 @@ let g:Gtags_OpenQuickfixWindow = 1
 let g:Gtags_Close_When_Single = 1
 let g:Gtags_Auto_Update = 1
 
-set tabstop=4
-set autoindent
-set expandtab
-set shiftwidth=4
-
 "File
 set hidden
 
@@ -175,12 +170,21 @@ set smartcase
 set wrapscan
 
 "Input
-set shiftwidth=4
 set tabstop=4
+set autoindent
+set shiftwidth=4
+set smarttab
 set expandtab "<Tab>の代わりに<Space>を挿入する
 set softtabstop=4 "expandtabで<Tab>が対応する<Space>の数
 set backspace=indent,eol,start
 set whichwrap=b,s,h,l,<,>,[,]
+
+" インデントの特殊なファイル設定
+augroup fileTypeIndent
+  autocmd!
+    autocmd BufRead,BufNewFile *.vim setlocal tabstop=2 softtabstop=-1 shiftwidth=2
+    autocmd BufRead,BufNewFile *.sh  setlocal tabstop=2 softtabstop=-1 shiftwidth=2
+augroup END
 
 "挿入モード中の移動コマンド
 inoremap <C-a> <Home>
