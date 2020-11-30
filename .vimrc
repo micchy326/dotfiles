@@ -200,6 +200,9 @@ cnoremap <C-f> <Right>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
+"コマンドラインで前方一致で履歴をたどる
+cnoremap <C-p> <Up>
+
 " コマンドモード時のTAB補完をzsh風にする
 set wildmenu
 set wildmode=list,longest
