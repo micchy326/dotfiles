@@ -36,9 +36,13 @@ if dein#load_state(s:dein_dir)
   call dein#load_toml(s:lazy_toml, {'lazy': 1})
 
   if g:use_coc
-    call dein#add('neoclide/coc.nvim_release', { 'merged': 0 })
+    call dein#add('neoclide/coc.nvim', { 'merged': 0 })
   else
-    call dein#add('prabirshrestha/vim-lsp', { 'merged': 0 })
+    "call dein#add('prabirshrestha/vim-lsp', { 'merged': 0 })
+    call dein#add('micchy326/vim-lsp', { 'merged': 0 })
+    "call dein#add('mattn/vim-lsp-settings', { 'merged': 0 })
+    call dein#add('prabirshrestha/asyncomplete.vim')
+    call dein#add('prabirshrestha/asyncomplete-lsp.vim')
     call dein#add('micchy326/vim-lsp-clangd-switch')
   endif
 
@@ -569,6 +573,18 @@ else
         let g:airline_section_warning = '⚠ %{lsp#get_buffer_diagnostics_counts()["warning"]}'
         let g:airline_section_error = '✗ %{lsp#get_buffer_diagnostics_counts()["error"]}%{lsp#get_buffer_first_error_line()? "-".lsp#get_buffer_first_error_line():""}'
     endfunction
+
+    " asyncomplete
+    function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction
+
+    inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ asyncomplete#force_refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
     let g:lsp_settings = {
     \  'clangd': {
