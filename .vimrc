@@ -787,3 +787,42 @@ augroup enable_airline_function_name
     autocmd!
     autocmd FileType typescript,json,c,cpp,rust,vim call EnableAirlineFunctionName()
 augroup END
+
+" eft
+nmap ; <Plug>(eft-repeat)
+xmap ; <Plug>(eft-repeat)
+
+nmap f <Plug>(eft-f)
+xmap f <Plug>(eft-f)
+omap f <Plug>(eft-f)
+nmap F <Plug>(eft-F)
+xmap F <Plug>(eft-F)
+omap F <Plug>(eft-F)
+
+nmap t <Plug>(eft-t)
+xmap t <Plug>(eft-t)
+omap t <Plug>(eft-t)
+nmap T <Plug>(eft-T)
+xmap T <Plug>(eft-T)
+omap T <Plug>(eft-T)
+
+" If you prefer clever-f style repeat.
+nmap f <Plug>(eft-f-repeatable)
+xmap f <Plug>(eft-f-repeatable)
+omap f <Plug>(eft-f-repeatable)
+nmap F <Plug>(eft-F-repeatable)
+xmap F <Plug>(eft-F-repeatable)
+omap F <Plug>(eft-F-repeatable)
+
+nmap t <Plug>(eft-t-repeatable)
+xmap t <Plug>(eft-t-repeatable)
+omap t <Plug>(eft-t-repeatable)
+nmap T <Plug>(eft-T-repeatable)
+xmap T <Plug>(eft-T-repeatable)
+omap T <Plug>(eft-T-repeatable)
+
+
+"nmap pp <Plug>(fern-action-leave)
+nmap <F3> <Plug>(fern-action-leave)
+nmap <F6> <Plug>(fern-action-debug)
+nmap <F7> <Plug>(fern-action-redraw)
