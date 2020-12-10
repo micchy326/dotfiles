@@ -592,6 +592,7 @@ else
                 \ 'name': 'clangd',
                 \ 'cmd': {server_info->['clangd', '--header-insertion-decorators']},
                 \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+                \ 'capabilities': {'window': {'workDoneProgress': v:true }},
                 \ 'whitelist': ['c', 'cpp'],
                 \ })
         endif
@@ -622,11 +623,12 @@ else
         autocmd FileType typescript call AirlineLspSetting()
     augroup END
 
-    if executable('rls')
+    if executable('rust-analyzer')
         autocmd User lsp_setup call lsp#register_server({
-            \ 'name': 'rls',
-            \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+            \ 'name': 'rust-analyzer',
+            \ 'cmd': {server_info->['rust-analyzer']},
             \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+            \ 'capabilities': {'window': {'workDoneProgress': v:true }},
             \ 'whitelist': ['rust'],
             \ })
     endif
