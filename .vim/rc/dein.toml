@@ -86,3 +86,5 @@ repo = 'liuchengxu/vista.vim'
 
 [[plugins]]
 repo = 'hrsh7th/vim-eft'
+[[plugins]]
+repo = 'Yggdroot/LeaderF'

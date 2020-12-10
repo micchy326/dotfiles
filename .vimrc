@@ -282,52 +282,60 @@ nmap <Space>7 <Plug>AirlineSelectTab7
 nmap <Space>8 <Plug>AirlineSelectTab8
 nmap <Space>9 <Plug>AirlineSelectTab9
 
-" ctrlp settings
-let g:ctrlp_map = '<Space>x'
-let g:ctrlp_cmd = 'CtrlPMRU'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = ['GTAGS', 'compile_commands.json', '.git']
-let g:ctrlp_show_hidden = 1
-"let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-let g:ctrlp_max_height = 40
-let g:ctrlp_use_caching = 1
-let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
-let g:ctrlp_key_loop = 1
-let g:ctrlp_mruf_exclude = '\.git\|\.svn'
-let g:ctrlp_user_command_async = 1
-let g:ctrlp_user_command = 'find %s -type d
-    \ -name ".git" -prune -o
-    \ -name ".svn" -prune -o
-    \ -name ".cache" -prune -o
-    \ -name ".dropbox" -prune -o
-    \ -name ".conda" -prune -o
-    \ -name ".eclipse" -prune -o
-    \ -name ".clangd" -prune -o
-    \ -name ".ccls-cache" -prune -o
-    \ -name ".clang-tidy" -prune -o
-    \ -type f
-    \ -not -name "*.o"
-    \ -not -name "*.a"
-    \ -not -name "*.d"
-    \ -not -name GPATH
-    \ -not -name GRTAGS
-    \ -not -name GTAGS
-    \ -print'
-
+" " ctrlp settings
+" let g:ctrlp_map = '<Space>x'
+" let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
+" let g:ctrlp_cmd = 'CtrlPMRU'
+" let g:ctrlp_working_path_mode = 'ra'
+" let g:ctrlp_root_markers = ['GTAGS', 'compile_commands.json', '.git']
+" let g:ctrlp_show_hidden = 1
+" "let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+" let g:ctrlp_max_height = 40
+" let g:ctrlp_use_caching = 1
+" let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+" let g:ctrlp_key_loop = 1
+" let g:ctrlp_mruf_exclude = '\.git\|\.svn'
+" "let g:ctrlp_reuse_window = 'netrw\|help\|quickfix'
+" let g:ctrlp_max_files = 200000
+" "
+" "let g:ctrlp_user_command_async = 1
+" "let g:ctrlp_user_command = 'find %s -type d
+" "    \ -name ".git" -prune -o
+" "    \ -name ".svn" -prune -o
+" "    \ -name ".cache" -prune -o
+" "    \ -name ".dropbox" -prune -o
+" "    \ -name ".conda" -prune -o
+" "    \ -name ".eclipse" -prune -o
+" "    \ -name ".clangd" -prune -o
+" "    \ -name ".ccls-cache" -prune -o
+" "    \ -name ".clang-tidy" -prune -o
+" "    \ -type f
+" "    \ -not -name "*.o"
+" "    \ -not -name "*.a"
+" "    \ -not -name "*.d"
+" "    \ -not -name GPATH
+" "    \ -not -name GRTAGS
+" "    \ -not -name GTAGS
+" "    \ -print'
+" 
 " let g:ctrlp_custom_ignore = {
-"   \ 'func': 'CtrlPIgnoreFilter',
-"   \ }
-" function! CtrlPIgnoreFilter(item, type) abort
-"     let l:cnv_item = tr(a:item, "\\", "/")
-"     let l:pattern = ['\.git/', '\.svn/', '/\.cache/', '/\.dropbox/', '/\.conda/', '/\.eclipse/', '\.o$', '\.a$', 'GPATH', 'GRTAGS', 'GTAGS']
-"     for p in l:pattern
-"         if match(l:cnv_item, p) >= 0
-"             "echo 'skip = ' l:cnv_item
-"             return 1
-"         endif
-"     endfor
-"     return 0
-" endfunction
+" \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+" \ 'file': '\v\.(exe|so|dll|o|a|d)$',
+" \ }
+" " let g:ctrlp_custom_ignore = {
+" "   \ 'func': 'CtrlPIgnoreFilter',
+" "   \ }
+" " function! CtrlPIgnoreFilter(item, type) abort
+" "     let l:cnv_item = tr(a:item, "\\", "/")
+" "     let l:pattern = ['\.git/', '\.svn/', '/\.cache/', '/\.dropbox/', '/\.conda/', '/\.eclipse/', '\.o$', '\.a$', 'GPATH', 'GRTAGS', 'GTAGS']
+" "     for p in l:pattern
+" "         if match(l:cnv_item, p) >= 0
+" "             "echo 'skip = ' l:cnv_item
+" "             return 1
+" "         endif
+" "     endfor
+" "     return 0
+" " endfunction
 
 " previewウインドウをひとまず無効化
 set completeopt=menuone
@@ -840,7 +848,36 @@ xmap T <Plug>(eft-T-repeatable)
 omap T <Plug>(eft-T-repeatable)
 
 
-"nmap pp <Plug>(fern-action-leave)
-nmap <F3> <Plug>(fern-action-leave)
 nmap <F6> <Plug>(fern-action-debug)
 nmap <F7> <Plug>(fern-action-redraw)
+
+
+" leaderf
+let g:Lf_ShortcutF = "<Space>xx"
+noremap <Space>xb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+noremap <Space>xm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <Space>xt :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <Space>xl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewCode = 1
+let g:Lf_PreviewInPopup = 1
+let g:Lf_WindowPosition = 'bottom'
+
+let g:Lf_HistoryExclude = {
+\   'cmd':  ['^wq?!?$', '^qa?!?$', '^.\s*$', '^\d+$'],
+\   'search':  []
+\}
+
+let g:Lf_WildIgnore = {
+\   'dir': ['.cache/clangd/*', 'node_modules/*', '*.pyc', '.ccls-cache/*', '.svn/*', '*.o', '*.a', '*.d'],
+\   'file': ['tags', 'GTAGS', 'GRTAGS', 'GPATH']
+\}
+let g:Lf_GtagsAutoGenerate = 1
+let g:Lf_Gtagslabel = 'native-pygments'
+noremap <Space>xr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <Space>xd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <Space>xo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+noremap <Space>xn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+noremap <Space>xp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+noremap <Space>xg :<C-U><C-R>=printf("Leaderf gtags --grep %s", expand("<cword>"))<CR><CR>
+noremap <Space>xf :<C-U>LeaderfFunction<CR>
