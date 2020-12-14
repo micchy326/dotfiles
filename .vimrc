@@ -858,10 +858,12 @@ noremap <Space>xb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
 noremap <Space>xm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
 noremap <Space>xt :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <Space>xl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
-let g:Lf_WindowPosition = 'popup'
+noremap <Space>xs :<C-U>LeaderfSelf<CR>
 let g:Lf_PreviewCode = 1
 let g:Lf_PreviewInPopup = 1
-let g:Lf_WindowPosition = 'bottom'
+let g:Lf_ShowHidden = 1
+let g:Lf_StlColorscheme = 'one'
+let g:Lf_PopupColorscheme = 'gruvbox_default'
 
 let g:Lf_HistoryExclude = {
 \   'cmd':  ['^wq?!?$', '^qa?!?$', '^.\s*$', '^\d+$'],
