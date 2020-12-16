@@ -782,11 +782,21 @@ augroup fern-custom
   autocmd FileType fern call s:init_fern()
 augroup END
 
+function! s:fern_get_path(helper) abort
+    let node = a:helper.sync.get_cursor_node()
+    let value = node._path
+    call ZF_DirDiffMark(value)
+endfunction
+function! s:fern_dirdiff() abort
+  call fern#mapping#call(funcref('s:fern_get_path'))
+endfunction
 function! s:init_fern() abort
   nmap <buffer> k k<Plug>(fern-action-mark:toggle)
   nmap <buffer> j <Plug>(fern-action-mark:toggle)j
   " disable spelunker
   let b:enable_spelunker_vim = 0
+
+  nnoremap <buffer> X :call <SID>fern_dirdiff()<cr>
 endfunction
 
 let g:fern#renderer = "nerdfont"
@@ -883,3 +893,30 @@ noremap <Space>xn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
 noremap <Space>xp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 noremap <Space>xg :<C-U><C-R>=printf("Leaderf gtags --grep %s", expand("<cword>"))<CR><CR>
 noremap <Space>xf :<C-U>LeaderfFunction<CR>
+
+
+" ZF_DirDiff
+let g:ZFDirDiffHLFunc_resetHL = 'ZF_DirDiffHL_resetHL_sign'
+let g:ZFDirDiffHLFunc_addHL = 'ZF_DirDiffHL_addHL_sign'
+
+augroup zf_dirdiff_fix
+  autocmd!
+  autocmd User ZFDirDiff_DirDiffEnter highlight link ZFDirDiffHL_Title Normal
+  autocmd User ZFDirDiff_DirDiffEnter highlight link ZFDirDiffHL_Dir Directory
+  autocmd User ZFDirDiff_DirDiffEnter highlight link ZFDirDiffHL_DirContainDiff WarningMsg
+  autocmd User ZFDirDiff_DirDiffEnter highlight link ZFDirDiffHL_Same Normal
+  autocmd User ZFDirDiff_DirDiffEnter highlight link ZFDirDiffHL_Diff WarningMsg
+  autocmd User ZFDirDiff_DirDiffEnter highlight ZFDirDiffHL_DirOnlyHere ctermfg=81 guifg=#73cef4
+  autocmd User ZFDirDiff_DirDiffEnter highlight ZFDirDiffHL_DirOnlyThere ctermfg=81 guifg=#73cef4
+  autocmd User ZFDirDiff_DirDiffEnter highlight ZFDirDiffHL_FileOnlyHere ctermfg=81 guifg=#73cef4
+  autocmd User ZFDirDiff_DirDiffEnter highlight ZFDirDiffHL_FileOnlyThere ctermfg=81 guifg=#73cef4
+  autocmd User ZFDirDiff_DirDiffEnter highlight ZFDirDiffHL_ConflictDir ctermfg=201 gui=bold guifg=Magenta
+  autocmd User ZFDirDiff_DirDiffEnter highlight ZFDirDiffHL_ConflictFile ctermfg=201 gui=bold guifg=Magenta
+  autocmd User ZFDirDiff_DirDiffEnter highlight ZFDirDiffHL_MarkToDiff guifg=#282828 guibg=#c9d05c
+  autocmd User ZFDirDiff_DirDiffEnter let b:enable_spelunker_vim = 0
+augroup END
+
+let g:ZFDirDiffKeymap_nextDiffFile = ['[c']
+let g:ZFDirDiffKeymap_prevDiffFile = [']c']
+
+let g:ZFDirDiffFileExclude = '.git,.svn,.cache,.clangd,.ccls-cache,.clang-tidy,.vscode'
