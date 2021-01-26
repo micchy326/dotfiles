@@ -4,11 +4,6 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'micchy326/gtags.vim'
 
-[[plugins]]
-repo = 'micchy326/gtags-cscope.vim'
-
-[[plugins]]
-repo = 'will133/vim-dirdiff'
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
@@ -19,15 +14,15 @@ repo = 'vim-airline/vim-airline'
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
 
-[[plugins]]
-repo = 'ctrlpvim/ctrlp.vim'
+# [[plugins]]
+# repo = 'ctrlpvim/ctrlp.vim'
 
 [[plugins]]
 repo = 't9md/vim-quickhl'
 
-[[plugins]]
-repo = 'micchy326/vim-coloresque'
-merged = 0
+# [[plugins]]
+# repo = 'micchy326/vim-coloresque'
+# merged = 0
 
 [[plugins]]
 repo = 'MattesGroeger/vim-bookmarks'
@@ -39,9 +34,6 @@ repo = 'leafgarland/typescript-vim'
 repo = 'glidenote/memolist.vim'
 
 [[plugins]]
-repo = 'osyo-manga/vim-anzu'
-
-[[plugins]]
 repo = 'm-pilia/vim-ccls'
 
 [[plugins]]
@@ -51,7 +43,7 @@ repo = 'terryma/vim-multiple-cursors'
 repo = 'skanehira/translate.vim'
 
 [[plugins]]
-repo = 'tpope/vim-fugitive'
+repo = 'lambdalisue/gina.vim'
 
 [[plugins]]
 repo = 'CoatiSoftware/vim-sourcetrail'
@@ -80,6 +72,9 @@ repo = 'lambdalisue/fern-hijack.vim'
 
 [[plugins]]
 repo = 'lambdalisue/nerdfont.vim'
+
+[[plugins]]
+repo = 'skywind3000/asyncrun.vim'
 
 [[plugins]]
 repo = 'liuchengxu/vista.vim'

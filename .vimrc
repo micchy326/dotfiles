@@ -1,8 +1,8 @@
 scriptencoding utf-8
 
 " 初期設定
-let g:use_coc = v:true
-let g:use_ccls = v:true
+let g:use_coc = v:false
+let g:use_ccls = v:false
 
 " プラグイン読み込みの前にpython3の使用を宣言しておく
 " プラグインを先に読み込むとpython2が使用されてしまう
@@ -38,12 +38,11 @@ if dein#load_state(s:dein_dir)
   if g:use_coc
     call dein#add('neoclide/coc.nvim', { 'merged': 0 })
   else
-    "call dein#add('prabirshrestha/vim-lsp', { 'merged': 0 })
-    call dein#add('micchy326/vim-lsp', { 'merged': 0 })
-    "call dein#add('mattn/vim-lsp-settings', { 'merged': 0 })
+    call dein#add('prabirshrestha/vim-lsp', { 'merged': 0 })
+    call dein#add('mattn/vim-lsp-settings', { 'merged': 0 })
     call dein#add('prabirshrestha/asyncomplete.vim')
     call dein#add('prabirshrestha/asyncomplete-lsp.vim')
-    call dein#add('micchy326/vim-lsp-clangd-switch')
+    call dein#add('micchy326/vim-lsp-clangd-switch', {'merged': 0})
   endif
 
   " 設定終了
@@ -103,7 +102,7 @@ augroup fix_tender
     autocmd ColorScheme tender call matchadd("Tab", "	")
     autocmd ColorScheme tender highlight Trail gui=reverse guibg=#555555
     autocmd ColorScheme tender call matchadd("Trail", ' \+$')
-    autocmd ColorScheme tender highlight lspReference guifg=Black guibg=#cccccc
+    autocmd ColorScheme tender highlight lspReference gui=bold guifg=yellow guibg=#000000
     autocmd ColorScheme tender highlight CocHighlightText guibg=#666666
 augroup END
 
@@ -269,7 +268,6 @@ set showtabline=2 " 常にタブラインを表示
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#anzu#enabled = 1
 let g:airline_theme = 'tender'
 let g:airline_powerline_fonts = 1
 nmap <Space>1 <Plug>AirlineSelectTab1
@@ -390,18 +388,6 @@ nmap <leader>W :set diffopt-=iwhiteall<cr>
 nmap ,mf :exe "CtrlP" g:memolist_path<cr><f5>
 nmap ,mc :MemoNew<cr>
 nmap ,mg :MemoGrep<cr>
-
-" anzu
-nmap n <Plug>(anzu-n)zz
-nmap N <Plug>(anzu-N)zz
-nmap * <Plug>(anzu-star)zz
-nmap # <Plug>(anzu-sharp)zz
-
-" g* 時にステータス情報を出力する場合
-nmap g* g*<Plug>(anzu-update-search-status-with-echo)
-
-" clear status
-nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
 let airline#extensions#languageclient#error_symbol = 'E:'
 let airline#extensions#languageclient#warning_symbol = 'W:'
@@ -576,6 +562,7 @@ else
     nnoremap <silent> <Space>f ggVG:'<,'>LspDocumentRangeFormat<CR>
     vnoremap <silent> <Space>f :'<,'>LspDocumentRangeFormat<CR>
     let g:lsp_highlight_references_enabled = 1
+    let g:lsp_work_done_progress_enabled = 1
 
     function! AirlineLspSetting()
         let g:airline_section_warning = '⚠ %{lsp#get_buffer_diagnostics_counts()["warning"]}'
@@ -594,39 +581,54 @@ else
       \ asyncomplete#force_refresh()
     inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-    let g:lsp_settings = {
-    \  'clangd': {
-    \    'disabled': v:true,
-    \   }
-    \}
-    if g:use_ccls
-        if executable('ccls')
-           autocmd User lsp_setup call lsp#register_server({
-              \ 'name': 'ccls',
-              \ 'cmd': {server_info->['ccls']},
-              \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-              \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }},
-              \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-              \ })
-        endif
-        let g:ccls_levels = 2
-    else
-        if executable('clangd')
-            autocmd User lsp_setup call lsp#register_server({
-                \ 'name': 'clangd',
-                \ 'cmd': {server_info->['clangd', '--header-insertion-decorators']},
-                \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-                \ 'capabilities': {'window': {'workDoneProgress': v:true }},
-                \ 'whitelist': ['c', 'cpp'],
-                \ })
-        endif
-    endif
+" let g:lsp_settings = {
+" \   'clangd': {
+" \       'capabilities': {'window': {'workDoneProgress': v:true }},
+" \   },
+" \   'rust-analyzer': {
+" \       'capabilities': {'window': {'workDoneProgress': v:true }},
+" \   },
+" \}
+"     let g:lsp_settings = {
+"     \  'clangd': {
+"     \    'disabled': v:true,
+"     \   }
+"     \}
+"     if g:use_ccls
+"         if executable('ccls')
+"            autocmd User lsp_setup call lsp#register_server({
+"               \ 'name': 'ccls',
+"               \ 'cmd': {server_info->['ccls']},
+"               \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+"               \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }},
+"               \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+"               \ })
+"         endif
+"         let g:ccls_levels = 2
+"     else
+"         if executable('clangd')
+"             autocmd User lsp_setup call lsp#register_server({
+"                 \ 'name': 'clangd',
+"                 \ 'cmd': {server_info->['clangd', '--header-insertion-decorators']},
+"                 \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+"                 \ 'capabilities': {'window': {'workDoneProgress': v:true }},
+"                 \ 'whitelist': ['c', 'cpp'],
+"                 \ })
+"         endif
+"     endif
+" 
+"     augroup cproject
+"         autocmd!
+"         autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+"         autocmd FileType c setlocal omnifunc=lsp#complete
+"         autocmd FileType c setlocal cindent
+"         autocmd FileType c call AirlineLspSetting()
+"         autocmd FileType c nmap <Space>s <plug>(lsp-clangd-switch)
+"     augroup END
 
     augroup cproject
         autocmd!
-        autocmd BufRead,BufNewFile *.h,*.c set filetype=c
-        autocmd FileType c setlocal omnifunc=lsp#complete
-        autocmd FileType c setlocal cindent
+        "autocmd BufRead,BufNewFile *.h,*.c set filetype=c
         autocmd FileType c call AirlineLspSetting()
         autocmd FileType c nmap <Space>s <plug>(lsp-clangd-switch)
     augroup END
@@ -647,20 +649,20 @@ else
         autocmd FileType typescript call AirlineLspSetting()
     augroup END
 
-    if executable('rust-analyzer')
-        autocmd User lsp_setup call lsp#register_server({
-            \ 'name': 'rust-analyzer',
-            \ 'cmd': {server_info->['rust-analyzer']},
-            \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
-            \ 'capabilities': {'window': {'workDoneProgress': v:true }},
-            \ 'whitelist': ['rust'],
-            \ })
-    endif
-    augroup rustproject
-        autocmd!
-        autocmd FileType rust setlocal omnifunc=lsp#complete
-        autocmd FileType rust call AirlineLspSetting()
-    augroup END
+"     if executable('rust-analyzer')
+"         autocmd User lsp_setup call lsp#register_server({
+"             \ 'name': 'rust-analyzer',
+"             \ 'cmd': {server_info->['rust-analyzer']},
+"             \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+"             \ 'capabilities': {'window': {'workDoneProgress': v:true }},
+"             \ 'whitelist': ['rust'],
+"             \ })
+"     endif
+"     augroup rustproject
+"         autocmd!
+"         autocmd FileType rust setlocal omnifunc=lsp#complete
+"         autocmd FileType rust call AirlineLspSetting()
+"     augroup END
 
     if executable('vscode-html-languageserver')
       au User lsp_setup call lsp#register_server({
@@ -733,14 +735,6 @@ let g:DirDiffExcludes = "*.o,*.a,*.swp,.git,.svn,GPATH,GRTAGS,GTAGS"
 augroup dirdiffgroup
     autocmd!
 augroup END
-
-" vim-fugitive
-let g:fugitive_no_maps = 1
-augroup fugitivegroup
-    autocmd!
-    autocmd FileType git set nofoldenable
-augroup END
-  let g:airline#extensions#fugitiveline#enabled = 0
 
 let g:airline_theme_patch_func = 'AirlineThemePatch'
 function! AirlineThemePatch(palette)
@@ -858,10 +852,6 @@ xmap T <Plug>(eft-T-repeatable)
 omap T <Plug>(eft-T-repeatable)
 
 
-nmap <F6> <Plug>(fern-action-debug)
-nmap <F7> <Plug>(fern-action-redraw)
-
-
 " leaderf
 let g:Lf_ShortcutF = "<Space>xx"
 noremap <Space>xb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
@@ -916,7 +906,22 @@ augroup zf_dirdiff_fix
   autocmd User ZFDirDiff_DirDiffEnter let b:enable_spelunker_vim = 0
 augroup END
 
-let g:ZFDirDiffKeymap_nextDiffFile = ['[c']
-let g:ZFDirDiffKeymap_prevDiffFile = [']c']
+let g:ZFDirDiffKeymap_nextDiffFile = [']c']
+let g:ZFDirDiffKeymap_prevDiffFile = ['[c']
 
 let g:ZFDirDiffFileExclude = '.git,.svn,.cache,.clangd,.ccls-cache,.clang-tidy,.vscode'
+
+" lightline
+let g:lightline = {
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'readonly', 'filename', 'modified', 'lsp_status' ] ]
+            \ },
+            \ 'component_function': {
+            \   'lsp_status': 'lightline_lsp_progress#progress',
+            \ },
+            \ }
+
+let g:lightline_lsp_progress_skip_time = 0.3
+let g:airline#extensions#lsp#progress_skip_time = 0.3
+

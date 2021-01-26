@@ -132,7 +132,7 @@ if [[ -n ${TMUX} ]]; then
 fi
 
 # vim-dirdiffでフォルダ間比較を容易に行う
-alias vimdirdiff="vim -f '+next' '+execute \"DirDiff\" argv(0) argv(1)' $LOCAL $REMOTE"
+alias vimdirdiff="vim -f '+next' '+execute \"ZFDirDiff\" argv(0) argv(1)' $LOCAL $REMOTE"
 
 # manコマンドをvimで開く
 export MANPAGER="vim -M +MANPAGER -"
@@ -148,4 +148,41 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
+# fzf
+
+ff() {
+    # Interactive search.
+    # Usage: `ff` or `ff <folder>`.
+    #
+    [[ -n $1 ]] && cd $1 # go to provided folder or noop
+    RG_DEFAULT_COMMAND="rg -i -l --hidden -g '!.git/' -g '!.svn/'"
+
+    selected=$(
+    FZF_DEFAULT_COMMAND="rg --files" fzf \
+      -m \
+      -e \
+      --ansi \
+      --phony \
+      --reverse \
+      --bind "ctrl-a:select-all" \
+      --bind "f12:execute-silent:(subl -b {})" \
+      --bind "change:reload:$RG_DEFAULT_COMMAND {q} || true" \
+      --preview "rg -i --pretty --context 2 {q} {}" | cut -d":" -f1,2
+    )
+
+    [[ -n $selected ]] && $EDITOR $selected # open multiple files in editor
+}
+
+# fzf-cdr
+alias cdd='fzf-cdr'
+fzf-cdr() {
+    target_dir=`cdr -l | sed 's/^[^ ][^ ]*  *//' | fzf`
+    target_dir=`echo ${target_dir/\~/$HOME}`
+    if [ -n "$target_dir" ]; then
+        cd $target_dir
+    fi
+}
+source /tmp/forgit/forgit.plugin.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
