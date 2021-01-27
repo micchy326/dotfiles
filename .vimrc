@@ -210,6 +210,9 @@ cnoremap <C-p> <Up>
 set wildmenu
 set wildmode=list,longest
 
+"C-vの矩形選択で行末より後ろもカーソルを置ける
+set virtualedit=block
+
 "空白文字を表示
 "http://4geek.net/set-gvims-vimrc-on-windows/
 set list "タブ、行末等の不可視文字を表示する
@@ -385,7 +388,7 @@ nmap <leader>w :set diffopt+=iwhiteall<cr>
 nmap <leader>W :set diffopt-=iwhiteall<cr>
 
 " ctrlp + memolist
-nmap ,mf :exe "CtrlP" g:memolist_path<cr><f5>
+nmap ,mf :exe "Leaderf file" g:memolist_path<cr>
 nmap ,mc :MemoNew<cr>
 nmap ,mg :MemoGrep<cr>
 
@@ -876,13 +879,16 @@ let g:Lf_WildIgnore = {
 \}
 let g:Lf_GtagsAutoGenerate = 1
 let g:Lf_Gtagslabel = 'native-pygments'
-noremap <Space>xr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <Space>xd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <Space>xo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
-noremap <Space>xn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
-noremap <Space>xp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
-noremap <Space>xg :<C-U><C-R>=printf("Leaderf gtags --grep %s", expand("<cword>"))<CR><CR>
+noremap <Space>xg :<C-U>Leaderf gtags<CR>
 noremap <Space>xf :<C-U>LeaderfFunction<CR>
+noremap <Space>xq :<C-U>LeaderfQuickfix<CR>
+noremap <Space>xr :<C-U>Leaderf rg<CR>
+noremap <Space>xm :<C-U>LeaderfMark<CR>
+
+let g:Lf_RgConfig = [
+        \ "--glob=!git/*",
+        \ "--hidden"
+    \ ]
 
 
 " ZF_DirDiff
@@ -924,4 +930,12 @@ let g:lightline = {
 
 let g:lightline_lsp_progress_skip_time = 0.3
 let g:airline#extensions#lsp#progress_skip_time = 0.3
+
+" ripgrep
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading\ --hidden\ -g\ !.git/\ -g\ !.svn/\ -g\ !.cache/\ -g\ !.clangd/\ -g\ !.ccls-cache/
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+command! -nargs=* -complete=file Rg grep --sort-files <args>
+command! -nargs=* -complete=file Rgg grep <args>
 

@@ -25,9 +25,6 @@ repo = 't9md/vim-quickhl'
 # merged = 0
 
 [[plugins]]
-repo = 'MattesGroeger/vim-bookmarks'
-
-[[plugins]]
 repo = 'leafgarland/typescript-vim'
 
 [[plugins]]
@@ -87,3 +84,15 @@ repo = 'ZSaberLv0/ZFVimDirDiff'
 
 [[plugins]]
 repo = 'Yggdroot/LeaderF'
+
+# [[plugins]]
+# repo = 'itchyny/lightline.vim'
+# merged = 0
+
+# [[plugins]]
+# repo = 'micchy326/lightline-lsp-progress.git'
+# merged = 0
+
+[[plugins]]
+repo = 'Yggdroot/LeaderF-marks'
+
