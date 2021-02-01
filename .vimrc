@@ -858,7 +858,8 @@ omap T <Plug>(eft-T-repeatable)
 " leaderf
 let g:Lf_ShortcutF = "<Space>xx"
 noremap <Space>xb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
-noremap <Space>xm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap - :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+noremap <Space>xm :<C-U><C-R>=printf("Leaderf mru --cwd %s", "")<CR><CR>
 noremap <Space>xt :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <Space>xl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 noremap <Space>xs :<C-U>LeaderfSelf<CR>
@@ -867,6 +868,7 @@ let g:Lf_PreviewInPopup = 1
 let g:Lf_ShowHidden = 1
 let g:Lf_StlColorscheme = 'one'
 let g:Lf_PopupColorscheme = 'gruvbox_default'
+let g:Lf_WindowPosition = 'popup'
 
 let g:Lf_HistoryExclude = {
 \   'cmd':  ['^wq?!?$', '^qa?!?$', '^.\s*$', '^\d+$'],
@@ -877,13 +879,29 @@ let g:Lf_WildIgnore = {
 \   'dir': ['.cache/clangd/*', 'node_modules/*', '*.pyc', '.ccls-cache/*', '.svn/*', '*.o', '*.a', '*.d'],
 \   'file': ['tags', 'GTAGS', 'GRTAGS', 'GPATH']
 \}
+
+let g:Lf_PreviewResult = {
+\ 'File': 1,
+\ 'Buffer': 1,
+\ 'Mru': 1,
+\ 'Tag': 0,
+\ 'BufTag': 1,
+\ 'Function': 1,
+\ 'Line': 1,
+\ 'Colorscheme': 0,
+\ 'Rg': 1,
+\ 'Gtags': 1
+\}
+let g:Lf_PopupPosition = [10000, 0]
+let g:Lf_PopupWidth = 0.8
+
 let g:Lf_GtagsAutoGenerate = 1
 let g:Lf_Gtagslabel = 'native-pygments'
 noremap <Space>xg :<C-U>Leaderf gtags<CR>
 noremap <Space>xf :<C-U>LeaderfFunction<CR>
 noremap <Space>xq :<C-U>LeaderfQuickfix<CR>
 noremap <Space>xr :<C-U>Leaderf rg<CR>
-noremap <Space>xm :<C-U>LeaderfMark<CR>
+noremap <Space>xM :<C-U>LeaderfMark<CR>
 
 let g:Lf_RgConfig = [
         \ "--glob=!git/*",
