@@ -382,7 +382,7 @@ let g:quickhl_manual_colors = [
 "
 
 " vimdiffのアルゴリズムを賢く (vim vim 8.1.0360-)
-set diffopt=internal,filler,algorithm:histogram,indent-heuristic
+set diffopt=internal,vertical,closeoff,hiddenoff,filler,algorithm:histogram,indent-heuristic
 " 空白行を無視する/しない
 nmap <leader>w :set diffopt+=iwhiteall<cr>
 nmap <leader>W :set diffopt-=iwhiteall<cr>
@@ -956,4 +956,22 @@ if executable("rg")
 endif
 command! -nargs=* -complete=file Rg grep --sort-files <args>
 command! -nargs=* -complete=file Rgg grep <args>
+
+" gina
+call gina#custom#command#option('commit', '-v|--verbose')
+call gina#custom#mapping#nmap(
+      \ '/.*', 'zz',
+      \ ':call gina#action#call(''compare:tab:ri'')<CR>',
+      \ {'noremap': 1, 'silent': 1},
+      \)
+
+" Echo chunk info with j/k
+call gina#custom#mapping#nmap(
+      \ 'blame', 'j',
+      \ 'j<Plug>(gina-blame-echo)'
+      \)
+call gina#custom#mapping#nmap(
+      \ 'blame', 'k',
+      \ 'k<Plug>(gina-blame-echo)'
+      \)
 
