@@ -265,6 +265,9 @@ tnoremap <silent> <C-k> <C-w>:bnext<CR>
 set mouse=a
 set ttymouse=sgr
 
+" tab設定
+nnoremap <silent> gc :tabc<cr>
+
 " airlineの設定
 set laststatus=2
 set showtabline=2 " 常にタブラインを表示
