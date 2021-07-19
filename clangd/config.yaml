@@ -1,0 +1,9 @@
+#CompileFlags:                     # Tweak the parse settings
+#Add: [-Wall, -I**]             # treat all files as C++, enable more warnings
+#Remove: -W*                     # strip all other warning-related flags
+Diagnostics:
+  ClangTidy:
+    Add: readability-*
+    Add: clang-analyzer-*
+    Add: misc-*
+    Add: bugprone-*
