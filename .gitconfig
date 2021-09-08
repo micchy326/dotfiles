@@ -10,7 +10,7 @@
 [mergetool]
 	prompt = false
 [difftool "dirdiff"]
-	cmd = vim -f '+next' '+execute \"ZFDirDiff\" argv(0) argv(1)' $LOCAL $REMOTE
+	cmd = vim -f '+execute \"ZFDirDiff\" argv(0) argv(1)' $LOCAL $REMOTE
 [alias]
 	dirdiff = difftool -d -t dirdiff
 
