@@ -735,13 +735,6 @@ let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<C-[>'
 
-" vim-dirdiff
-let g:DirDiffForceLang = "C LC_ALL=C"
-let g:DirDiffExcludes = "*.o,*.a,*.swp,.git,.svn,GPATH,GRTAGS,GTAGS"
-augroup dirdiffgroup
-    autocmd!
-augroup END
-
 let g:airline_theme_patch_func = 'AirlineThemePatch'
 function! AirlineThemePatch(palette)
     for mode in [ "inactive", "insert", "normal", "replace", "visual",]

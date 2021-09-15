@@ -131,8 +131,8 @@ if [[ -n ${TMUX} ]]; then
     ( zsh_auto_log & ) > /dev/null 2>&1
 fi
 
-# vim-dirdiffでフォルダ間比較を容易に行う
-alias vimdirdiff="vim -f '+next' '+execute \"ZFDirDiff\" argv(0) argv(1)' $LOCAL $REMOTE"
+# ZFDirDiffでフォルダ間比較
+alias vimdirdiff="vim -f '+execute \"ZFDirDiff\" argv(0) argv(1)' $LOCAL $REMOTE"
 
 # manコマンドをvimで開く
 export MANPAGER="vim -M +MANPAGER -"
