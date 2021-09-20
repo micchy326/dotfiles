@@ -349,40 +349,48 @@ inoremap <C-p> <C-R>=pumvisible() ? "\<lt>Up>" : "\<lt>C-p>"<CR>
 inoremap <C-n> <C-R>=pumvisible() ? "\<lt>Down>" : "\<lt>C-n>"<CR>
 
 " vim-quickhl
-nmap <Space>m <Plug>(quickhl-manual-this)
-xmap <Space>m <Plug>(quickhl-manual-this)
-nmap <F9>     <Plug>(quickhl-manual-toggle)
-xmap <F9>     <Plug>(quickhl-manual-toggle)
-nmap <End>    <Plug>(quickhl-manual-go-to-next)
-nmap <Home>   <Plug>(quickhl-manual-go-to-prev)
-
-nmap <Space>M <Plug>(quickhl-manual-reset)
-xmap <Space>M <Plug>(quickhl-manual-reset)
-
-nmap <Space>j <Plug>(quickhl-cword-toggle)
+nmap <Space>M <Plug>(quickhl-manual-this)
+xmap <Space>M <Plug>(quickhl-manual-this)
+nmap <Space>m <Plug>(quickhl-manual-this1)
+xmap <Space>m <Plug>(quickhl-manual-this1)
+nmap <End>    <Plug>(quickhl-manual-go-to-next1)
+nmap <Home>   <Plug>(quickhl-manual-go-to-prev1)
 
 nmap <Space>] <Plug>(quickhl-tag-toggle)
 " 上から順にハイライト時の色として使用される。抵抗のカラーコードと同じ
 let g:quickhl_manual_colors = [
-   \ "gui=bold ctermfg=15 ctermbg=172 guibg=#8A4B08 guifg=#ffffff",
-   \ "gui=bold ctermfg=15 ctermbg=160 guibg=#DF013A guifg=#ffffff",
-   \ "gui=bold ctermfg=0  ctermbg=202 guibg=#FF8000 guifg=#000000",
-   \ "gui=bold ctermfg=0  ctermbg=220 guibg=#F3F781 guifg=#000000",
-   \ "gui=bold ctermfg=0  ctermbg=118 guibg=#00FF00 guifg=#000000",
-   \ "gui=bold ctermfg=15 ctermbg=20  guibg=#2E64FE guifg=#ffffff",
-   \ "gui=bold ctermfg=15 ctermbg=5   guibg=#A901DB guifg=#ffffff",
-   \ "gui=bold ctermfg=0  ctermbg=247 guibg=#FFFFFF guifg=#000000",
-   \ "gui=bold ctermfg=0  ctermbg=255 guibg=#D8D8D8 guifg=#000000",
-   \ "gui=bold ctermfg=15 ctermbg=239 guibg=#585858 guifg=#ffffff",
-      \ ]
+   \ "guibg=#e74c3c guifg=#ffffff",
+   \ "guibg=#3867d6 guifg=#ffffff",
+   \ "guibg=#27ae60 guifg=#ffffff",
+   \ "guibg=#8854d0 guifg=#ffffff",
+   \ "guibg=#c0392b guifg=#ffffff",
+   \ "guibg=#8e44ad guifg=#ffffff",
+   \ "guibg=#3498db guifg=#ffffff",
+   \ "guibg=#eb3b5a guifg=#ffffff",
+   \ "guibg=#2980b9 guifg=#ffffff",
+   \ "guibg=#1abc9c guifg=#000000",
+   \ "guibg=#fd9644 guifg=#000000",
+   \ "guibg=#fc5c65 guifg=#000000",
+   \ "guibg=#0fb9b1 guifg=#000000",
+   \ "guibg=#45aaf2 guifg=#000000",
+   \ "guibg=#fed330 guifg=#000000",
+   \ "guibg=#26de81 guifg=#000000",
+   \ "guibg=#2bcbba guifg=#000000",
+   \ "guibg=#fa8231 guifg=#000000",
+   \ "guibg=#f7b731 guifg=#000000",
+   \ "guibg=#9b59b6 guifg=#ffffff",
+   \ "guibg=#20bf6b guifg=#000000",
+   \ "guibg=#e67e22 guifg=#000000",
+   \ "guibg=#4b7bec guifg=#ffffff",
+   \ "guibg=#2ecc71 guifg=#000000",
+   \ "guibg=#d35400 guifg=#ffffff",
+   \ "guibg=#f1c40f guifg=#000000",
+   \ "guibg=#a55eea guifg=#ffffff",
+   \ "guibg=#16a085 guifg=#ffffff",
+   \ "guibg=#f39c12 guifg=#000000",
+   \ "guibg=#2d98da guifg=#ffffff",
+   \ ]
 
-" 常時ハイライトしたい文字列を指定する。上の配色が上から使用される
-"let g:quickhl_manual_keywords = [
-"      \ "finish",
-"      \ {"pattern": '\s\+$', "regexp": 1 },
-"      \ {"pattern": '\d\{1,3}\.\d\{1,3}\.\d\{1,3}\.\d\{1,3}', "regexp": 1 },
-"      \ ]
-"
 
 " vimdiffのアルゴリズムを賢く (vim vim 8.1.0360-)
 set diffopt=internal,vertical,closeoff,hiddenoff,filler,algorithm:histogram,indent-heuristic
