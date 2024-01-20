@@ -8,17 +8,22 @@ let g:use_ccls = v:false
 " プラグインを先に読み込むとpython2が使用されてしまう
 call has('python3')
 
-" プラグインが実際にインストールされるディレクトリ
+" " プラグインが実際にインストールされるディレクトリ
 let s:dein_dir = expand('~/.cache/dein')
-" dein.vim 本体
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-
-" dein.vim がなければ github から落としてくる
+let $CACHE = expand('~/.cache')
+if !($CACHE->isdirectory())
+  call mkdir($CACHE, 'p')
+endif
 if &runtimepath !~# '/dein.vim'
-  if !isdirectory(s:dein_repo_dir)
-    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  let s:dir = 'dein.vim'->fnamemodify(':p')
+  if !(s:dir->isdirectory())
+    let s:dir = $CACHE .. '/dein/repos/github.com/Shougo/dein.vim'
+    if !(s:dir->isdirectory())
+      execute '!git clone https://github.com/Shougo/dein.vim' s:dir
+    endif
   endif
-  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+  execute 'set runtimepath^='
+        \ .. s:dir->fnamemodify(':p')->substitute('[/\\]$', '', '')
 endif
 
 " 設定開始
@@ -27,7 +32,7 @@ if dein#load_state(s:dein_dir)
 
   " プラグインリストを収めた TOML ファイル
   " 予め TOML ファイル（後述）を用意しておく
-  let g:rc_dir    = expand('~/.vim/rc')
+  let g:rc_dir    = expand('~/dotfiles/.vim/rc')
   let s:toml      = g:rc_dir . '/dein.toml'
   let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
 
@@ -86,7 +91,7 @@ augroup fix_tender
     autocmd ColorScheme tender set cursorline
     autocmd ColorScheme tender highlight CursorLine guibg=#484848 gui=NONE
     autocmd ColorScheme tender highlight! link Search WildMenu
-    autocmd ColorScheme tender set fillchars=vert:┃,fold:-
+    autocmd ColorScheme tender set fillchars=vert:\|,fold:-
     autocmd ColorScheme tender highlight VertSplit guifg=#999999
     autocmd ColorScheme tender highlight Comment guifg=#aaaaaa
     autocmd ColorScheme tender highlight LineNr guifg=#999999
@@ -155,7 +160,8 @@ let g:Gtags_Auto_Update = 1
 set hidden
 
 "Backup
-call system('mkdir -p $HOME/dotfiles/.vim/backup')
+let $BACKUP = expand('$HOME/dotfiles/.vim/backup')
+call mkdir($BACKUP, 'p')
 set backupdir=$HOME/dotfiles/.vim/backup
 set browsedir=buffer
 set directory=$HOME/dotfiles/.vim/backup
