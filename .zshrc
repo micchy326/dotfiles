@@ -182,7 +182,8 @@ fzf-cdr() {
         cd $target_dir
     fi
 }
-source /tmp/forgit/forgit.plugin.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+
+. "$HOME/.local/bin/env"

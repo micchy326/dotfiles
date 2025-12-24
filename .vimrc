@@ -108,6 +108,8 @@ augroup fix_tender
     autocmd ColorScheme tender highlight Trail gui=reverse guibg=#555555
     autocmd ColorScheme tender call matchadd("Trail", ' \+$')
     autocmd ColorScheme tender highlight lspReference gui=bold guifg=yellow guibg=#000000
+    autocmd ColorScheme tender highlight lspInlayHintsType guifg=#007777 ctermfg=245
+    autocmd ColorScheme tender highlight lspInlayHintsParameter guifg=#007777 ctermfg=245
     autocmd ColorScheme tender highlight CocHighlightText guibg=#666666
 augroup END
 
@@ -583,6 +585,7 @@ else
     vnoremap <silent> <Space>f :'<,'>LspDocumentRangeFormat<CR>
     let g:lsp_highlight_references_enabled = 1
     let g:lsp_work_done_progress_enabled = 1
+    let g:lsp_inlay_hints_enabled = 1
 
     function! AirlineLspSetting()
         let g:airline_section_warning = '⚠ %{lsp#get_buffer_diagnostics_counts()["warning"]}'
@@ -626,15 +629,15 @@ else
 "         endif
 "         let g:ccls_levels = 2
 "     else
-"         if executable('clangd')
-"             autocmd User lsp_setup call lsp#register_server({
-"                 \ 'name': 'clangd',
-"                 \ 'cmd': {server_info->['clangd', '--header-insertion-decorators']},
-"                 \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-"                 \ 'capabilities': {'window': {'workDoneProgress': v:true }},
-"                 \ 'whitelist': ['c', 'cpp'],
-"                 \ })
-"         endif
+         if executable('clangd.exe')
+             autocmd User lsp_setup call lsp#register_server({
+                 \ 'name': 'clangd',
+                 \ 'cmd': {server_info->['clangd.exe', '--header-insertion-decorators']},
+                 \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+                 \ 'capabilities': {'window': {'workDoneProgress': v:true }},
+                 \ 'whitelist': ['c', 'cpp'],
+                 \ })
+         endif
 "     endif
 " 
 "     augroup cproject

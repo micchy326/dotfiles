@@ -3,6 +3,7 @@
 ln -sf ~/dotfiles/.screenrc ~/.screenrc
 ln -sf ~/dotfiles/.vimrc ~/.vimrc
 ln -sf ~/dotfiles/.vim ~/.vim
+ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
 mkdir -p ~/.vim/backup
 mkdir -p ~/.vimundo
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
