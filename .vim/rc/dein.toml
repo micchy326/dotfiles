@@ -10,6 +10,7 @@ repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
+hook_post_update = 'sed -i "s/recompute: 1/recompute: 0/" autoload/airline/extensions/searchcount.vim'
 
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'

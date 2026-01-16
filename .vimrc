@@ -279,7 +279,22 @@ nnoremap <silent> gc :tabc<cr>
 " airlineの設定
 set laststatus=2
 set showtabline=2 " 常にタブラインを表示
-let g:airline#extensions#tabline#enabled = 1
+
+" airlineの拡張機能を明示的に指定して、二重読み込みを防ぐ
+let g:airline_extensions = [
+      \ 'tabline',
+      \ 'branch',
+      \ 'fern',
+      \ 'gina',
+      \ 'netrw',
+      \ 'quickfix',
+      \ 'searchcount',
+      \ 'term',
+      \ 'wordcount',
+      \ 'vista',
+      \ 'languageclient'
+      \ ]
+
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline_theme = 'tender'
@@ -357,10 +372,8 @@ inoremap <C-p> <C-R>=pumvisible() ? "\<lt>Up>" : "\<lt>C-p>"<CR>
 inoremap <C-n> <C-R>=pumvisible() ? "\<lt>Down>" : "\<lt>C-n>"<CR>
 
 " vim-quickhl
-nmap <Space>M <Plug>(quickhl-manual-this)
-xmap <Space>M <Plug>(quickhl-manual-this)
-nmap <Space>m <Plug>(quickhl-manual-this1)
-xmap <Space>m <Plug>(quickhl-manual-this1)
+nmap <Space>m <Plug>(quickhl-manual-this)
+xmap <Space>m <Plug>(quickhl-manual-this)
 nmap <End>    <Plug>(quickhl-manual-go-to-next1)
 nmap <Home>   <Plug>(quickhl-manual-go-to-prev1)
 
@@ -987,4 +1000,14 @@ call gina#custom#mapping#nmap(
       \ 'blame', 'k',
       \ 'k<Plug>(gina-blame-echo)'
       \)
+
+" WSL clipboard integration using TextYankPost for seamless copy to Windows clipboard
+if (has('unix') && filereadable('/proc/version') && readfile('/proc/version')[0] =~? 'Microsoft')
+  " Enable seamless copy (yank) to Windows clipboard using clip.exe
+  augroup WSLClipboard
+    autocmd!
+    " Automatically copy yanked text to Windows clipboard
+    autocmd TextYankPost * call system('clip.exe', @0)
+  augroup END
+endif
 
