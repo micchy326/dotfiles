@@ -1,5 +1,13 @@
 scriptencoding utf-8
 
+if has('win32')
+    " Force Python 3.11 for Windows to avoid LeaderF/Python 3.12+ incompatibility
+    let s:py3_dll = expand('$LOCALAPPDATA/Programs/Python/Python311/python311.dll')
+    if filereadable(s:py3_dll)
+        let &pythonthreedll = s:py3_dll
+    endif
+endif
+
 " 初期設定
 let g:use_coc = v:false
 let g:use_ccls = v:false
@@ -642,15 +650,16 @@ else
 "         endif
 "         let g:ccls_levels = 2
 "     else
-         if executable('clangd.exe')
-             autocmd User lsp_setup call lsp#register_server({
-                 \ 'name': 'clangd',
-                 \ 'cmd': {server_info->['clangd.exe', '--header-insertion-decorators']},
-                 \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-                 \ 'capabilities': {'window': {'workDoneProgress': v:true }},
-                 \ 'whitelist': ['c', 'cpp'],
-                 \ })
-         endif
+
+        if executable('clangd.exe')
+            autocmd User lsp_setup call lsp#register_server({
+                \ 'name': 'clangd',
+                \ 'cmd': {server_info->['clangd.exe', '--header-insertion-decorators']},
+                \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+                \ 'capabilities': {'window': {'workDoneProgress': v:true }},
+                \ 'whitelist': ['c', 'cpp'],
+                \ })
+        endif
 "     endif
 " 
 "     augroup cproject
@@ -916,12 +925,12 @@ let g:Lf_PreviewResult = {
 \ 'Line': 1,
 \ 'Colorscheme': 0,
 \ 'Rg': 1,
-\ 'Gtags': 1
+\ 'Gtags': 0
 \}
 let g:Lf_PopupPosition = [10000, 0]
 let g:Lf_PopupWidth = 0.8
 
-let g:Lf_GtagsAutoGenerate = 1
+let g:Lf_GtagsAutoGenerate = 0
 let g:Lf_Gtagslabel = 'native-pygments'
 noremap <Space>xg :<C-U>Leaderf gtags<CR>
 noremap <Space>xf :<C-U>LeaderfFunction<CR>
@@ -1001,6 +1010,7 @@ call gina#custom#mapping#nmap(
       \ 'k<Plug>(gina-blame-echo)'
       \)
 
+
 " WSL clipboard integration using TextYankPost for seamless copy to Windows clipboard
 if (has('unix') && filereadable('/proc/version') && readfile('/proc/version')[0] =~? 'Microsoft')
   " Enable seamless copy (yank) to Windows clipboard using clip.exe
@@ -1010,4 +1020,21 @@ if (has('unix') && filereadable('/proc/version') && readfile('/proc/version')[0]
     autocmd TextYankPost * call system('clip.exe', @0)
   augroup END
 endif
+
+" Airline のタブラインを有効化
+let g:airline#extensions#tabline#enabled = 1
+
+" タブとバッファの両方を表示
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#show_buffers = 1
+
+" 表示順を制御（tabs → buffers）
+let g:airline#extensions#tabline#tabs_label = 'Tabs: '
+let g:airline#extensions#tabline#buffers_label = 'Buffers: '
+
+" 表示スタイル（必要に応じて調整）
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+let g:airline#extensions#tabline#tab_nr_type = 2
+
 
